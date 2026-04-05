@@ -1,26 +1,127 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-accent:       #C41230;
+  --color-accent-light: #E8394D;
+  --color-accent-dark:  #8B0000;
+  --color-bg-primary:   #080808;
+  --color-bg-secondary: #0f0808;
+  --color-bg-card:      #120808;
+  --color-warm-white:   #F5F0EB;
+  --color-muted:        #787878;
+  --color-border:       #2a1212;
+
+  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans:    var(--font-inter), "Inter", system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+* { box-sizing: border-box; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #080808;
+  color: #F5F0EB;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0f0808; }
+::-webkit-scrollbar-thumb { background: #C41230; border-radius: 3px; }
+
+/* ── Crossing grid ── */
+.crossing-grid {
+  background-image:
+    linear-gradient(to right, rgba(196, 18, 48, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(196, 18, 48, 0.06) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* ── Streak animations ── */
+@keyframes streakH {
+  0%   { transform: translateX(-10%);   opacity: 0; }
+  5%   { opacity: 0.8; }
+  95%  { opacity: 0.5; }
+  100% { transform: translateX(110vw);  opacity: 0; }
+}
+@keyframes streakV {
+  0%   { transform: translateY(-10%);   opacity: 0; }
+  5%   { opacity: 0.8; }
+  95%  { opacity: 0.5; }
+  100% { transform: translateY(110vh);  opacity: 0; }
+}
+
+.streak-h {
+  position: absolute;
+  height: 1px;
+  width: 80px;
+  background: linear-gradient(to right, transparent, rgba(196, 18, 48, 0.65), transparent);
+  animation: streakH linear infinite;
+}
+.streak-v {
+  position: absolute;
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, rgba(196, 18, 48, 0.65), transparent);
+  animation: streakV linear infinite;
+}
+
+/* ── Shimmer keyframe ── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ── Red shimmer on "Xing" title ── */
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #C41230 0%,
+    #E8394D 35%,
+    #ff6b7a 50%,
+    #E8394D 65%,
+    #C41230 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3.5s linear infinite;
+}
+
+/* ── Card hover glow ── */
+.card-hover {
+  transition: all 0.3s ease;
+}
+.card-hover:hover {
+  border-color: rgba(196, 18, 48, 0.45) !important;
+  box-shadow: 0 0 30px rgba(196, 18, 48, 0.1), 0 20px 60px rgba(0, 0, 0, 0.6);
+  transform: translateY(-4px);
+}
+
+/* ── Section divider ── */
+.divider-gold {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(196, 18, 48, 0.5), transparent);
+}
+
+/* ── Image placeholders ── */
+.img-placeholder-food {
+  background: linear-gradient(135deg, #1a0808 0%, #200a0a 30%, #180606 60%, #100505 100%);
+}
+.img-placeholder-ambiance {
+  background: linear-gradient(135deg, #0a0808 0%, #150a0a 30%, #1a0808 60%, #0d0606 100%);
+}
+.img-placeholder-sushi {
+  background: linear-gradient(135deg, #0f0808 0%, #1a0a0a 30%, #150808 60%, #0d0606 100%);
+}
+
+/* ── Overlay for image cards ── */
+.img-overlay {
+  background: linear-gradient(to top, rgba(8, 4, 4, 0.92) 0%, rgba(8, 4, 4, 0.3) 50%, transparent 100%);
+}
+
+/* ── Letter spacing utility ── */
+.tracking-mega { letter-spacing: 0.4em; }
