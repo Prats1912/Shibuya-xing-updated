@@ -30,7 +30,7 @@ const OVERLAYS: Overlay[] = [
   {
     from: 0,
     to: 0.22,
-    label: "Surf & Turf Ramen · ₹725",
+    label: "Surf & Turf Ramen",
     heading: "An Experience\nUnlike Any Other.",
     sub: "Our most celebrated bowl. Every ingredient chosen, every element placed with intention.",
   },

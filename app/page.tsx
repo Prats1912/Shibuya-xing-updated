@@ -486,9 +486,6 @@ export default function HomePage() {
                     >
                       {dish.name}
                     </h3>
-                    <span className="text-[#C41230] text-sm font-medium ml-3 shrink-0">
-                      {dish.price}
-                    </span>
                   </div>
                   <p className="text-[#787878] text-xs leading-relaxed">{dish.desc}</p>
                 </div>
