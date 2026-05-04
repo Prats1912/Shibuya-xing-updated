@@ -2,7 +2,6 @@
 
 import AnimatedSection, { StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import { MapPin, Phone, Mail, Clock, Instagram, Facebook } from "lucide-react";
-import Link from "next/link";
 
 export default function ContactPage() {
   return (
@@ -18,11 +17,11 @@ export default function ContactPage() {
         />
         <div className="absolute inset-0 crossing-grid opacity-30" />
         <AnimatedSection className="relative z-10 max-w-7xl mx-auto">
-          <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-4 font-medium">
+          <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">
             Reach Us
           </p>
           <h1
-            className="text-[clamp(48px,8vw,96px)] font-black text-[#f5f0eb] uppercase leading-none tracking-tight mb-4"
+            className="text-base font-semibold text-[#f5f0eb] uppercase leading-none tracking-tight mb-4"
             style={{ fontFamily: "var(--font-playfair)" }}
           >
             Contact
@@ -86,9 +85,8 @@ export default function ContactPage() {
                   content: (
                     <div className="space-y-2">
                       {[
-                        { day: "Mon — Thu", time: "12:00 PM – 11:00 PM" },
-                        { day: "Fri — Sat", time: "12:00 PM – 12:00 AM" },
-                        { day: "Sunday", time: "12:00 PM – 11:00 PM" },
+                        { day: "Mon — Thu", time: "12:00 PM – 11:30 PM" },
+                        { day: "Fri — Sun", time: "12:00 PM – 12:00 AM" },
                       ].map((h) => (
                         <div key={h.day} className="flex justify-between items-center gap-8">
                           <span className="text-[#787878] text-xs tracking-wide">{h.day}</span>
@@ -205,26 +203,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Reserve CTA */}
-      <section className="py-20 border-t border-[#1a1a1a]">
-        <AnimatedSection className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-4 font-medium">
-            Ready to visit?
-          </p>
-          <h2
-            className="text-[clamp(28px,4vw,48px)] font-bold text-[#f5f0eb] mb-8"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            Reserve Your Table
-          </h2>
-          <Link
-            href="https://reservations.petpooja.com/form/paidformperpax/f6b98aa9aecea9415aa032c0c57cefaac7ad50cde2469ff09ce9a459c11007258a7380430e0c4abb6912be5a85f35c85971ad72749fc89eef8aebf34050261f98b977b6aa68e06e05b9bde3790ab513d70607ef5be40b8e1a485966a9607a8da" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-[#C41230] text-[#080808] px-10 py-4 text-xs tracking-[0.3em] uppercase font-semibold hover:bg-[#E8394D] transition-all duration-300"
-          >
-            Make a Reservation
-          </Link>
-        </AnimatedSection>
-      </section>
     </>
   );
 }

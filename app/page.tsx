@@ -210,56 +210,31 @@ export default function HomePage() {
         <CrossingBackground />
 
         <motion.div
-          className="relative z-10 text-center px-6 max-w-5xl mx-auto"
+          className="relative z-10 text-center px-6 max-w-5xl mx-auto mt-14 md:mt-20"
           style={{ y: heroY, opacity: heroOpacity }}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
+            initial={{ opacity: 0, scale: 0.88 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex justify-center mb-8"
+            transition={{ duration: 1.1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="flex justify-center mb-10"
           >
-            <Image
-              src="/logo.png"
-              alt="Shibuya Xing"
-              width={1920}
-              height={1080}
-              className="object-contain h-36 w-auto"
-              priority
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/shibuya-logo.png"
+              alt="Shibuya Xing — A Pan Asian Nook"
+              style={{ height: "auto", width: "min(90vw, 520px)", display: "block" }}
             />
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, letterSpacing: "0.6em" }}
-            animate={{ opacity: 1, letterSpacing: "0.4em" }}
-            transition={{ duration: 1.2, delay: 0.2 }}
-            className="text-[#C41230] text-[10px] uppercase mb-10 font-medium tracking-[0.4em]"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-[#F5C200] text-[15px] uppercase mb-10 font-medium tracking-[0.4em]"
           >
             Indiranagar · 12th Main Road · Bangalore
           </motion.p>
-
-          <div className="overflow-hidden mb-2">
-            <motion.h1
-              initial={{ y: "100%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[clamp(56px,12vw,130px)] font-black uppercase leading-none tracking-tight text-[#f5f0eb]"
-              style={{ fontFamily: "var(--font-playfair)" }}
-            >
-              Shibuya
-            </motion.h1>
-          </div>
-          <div className="overflow-hidden mb-8">
-            <motion.h1
-              initial={{ y: "100%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: 1, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[clamp(56px,12vw,130px)] font-black uppercase leading-none tracking-tight text-shimmer"
-              style={{ fontFamily: "var(--font-playfair)" }}
-            >
-              Xing
-            </motion.h1>
-          </div>
 
           <motion.div
             initial={{ scaleX: 0 }}
@@ -267,15 +242,6 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 0.9 }}
             className="divider-gold max-w-md mx-auto mb-8"
           />
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.1 }}
-            className="text-[#f5f0eb]/55 text-sm md:text-base tracking-[0.35em] uppercase mb-12 font-light"
-          >
-            One Crossing. Exotic Flavours.
-          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -305,7 +271,6 @@ export default function HomePage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 2, duration: 0.8 }}
         >
-          <span className="text-[#787878] text-[9px] tracking-[0.4em] uppercase">Scroll</span>
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
@@ -321,11 +286,11 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 items-center min-h-[700px]">
             {/* Text */}
             <AnimatedSection direction="left" className="py-24 lg:py-0 order-2 lg:order-1">
-              <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-6 font-medium">
+              <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-4 font-bold">
                 Sake Cocktails
               </p>
               <h2
-                className="text-[clamp(36px,5vw,60px)] font-bold text-[#f5f0eb] leading-tight mb-6"
+                className="text-base font-medium text-[#f5f0eb] leading-tight mb-6"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
                 The{" "}
@@ -337,7 +302,7 @@ export default function HomePage() {
                 at Shibuya Xing is a small story of Asia in a glass — delicate, bold, and utterly memorable.
               </p>
               <p className="text-[#787878] text-sm leading-[1.9] mb-10">
-                Drag the glass. Tilt it. It's yours for a moment.
+                Drag the glass. Tilt it. It&apos;s yours for a moment.
               </p>
               <Link
                 href="/menu"
@@ -373,11 +338,11 @@ export default function HomePage() {
       <section className="py-28 px-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           <AnimatedSection direction="left">
-            <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-6 font-medium">
+            <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-4 font-bold">
               Our Story
             </p>
             <h2
-              className="text-[clamp(36px,5vw,60px)] font-bold text-[#f5f0eb] leading-tight mb-8"
+              className="text-base font-medium text-[#f5f0eb] leading-tight mb-8"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               From Tokyo&apos;s Most Famous{" "}
@@ -445,11 +410,11 @@ export default function HomePage() {
       {/* SIGNATURE DISHES */}
       <section className="py-28 px-6 max-w-7xl mx-auto">
         <AnimatedSection className="text-center mb-16">
-          <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-4 font-medium">
+          <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">
             From Our Kitchen
           </p>
           <h2
-            className="text-[clamp(32px,4.5vw,54px)] font-bold text-[#f5f0eb]"
+            className="text-sm font-medium text-[#f5f0eb]"
             style={{ fontFamily: "var(--font-playfair)" }}
           >
             Signature Creations
@@ -512,11 +477,11 @@ export default function HomePage() {
       <section className="py-24 bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-6">
           <AnimatedSection className="text-center mb-16">
-            <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-4 font-medium">
+            <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">
               What We Offer
             </p>
             <h2
-              className="text-[clamp(32px,4.5vw,54px)] font-bold text-[#f5f0eb]"
+              className="text-sm font-medium text-[#f5f0eb]"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               The Shibuya Experience
@@ -544,7 +509,7 @@ export default function HomePage() {
               <StaggerItem key={item.num}>
                 <div className="bg-[#0d0d0d] p-10 group hover:bg-[#111111] transition-colors duration-300 h-full">
                   <div
-                    className="text-[#C41230]/15 text-6xl font-black leading-none mb-8 group-hover:text-[#C41230]/25 transition-colors duration-300"
+                    className="text-[#E8394D] text-6xl font-black leading-none mb-8 group-hover:text-[#FF4D63] transition-colors duration-300"
                     style={{ fontFamily: "var(--font-playfair)" }}
                   >
                     {item.num}
@@ -567,11 +532,11 @@ export default function HomePage() {
       <section className="py-28 px-6 max-w-7xl mx-auto">
         <AnimatedSection className="flex items-end justify-between mb-12 flex-wrap gap-4">
           <div>
-            <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-4 font-medium">
+            <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">
               Inside Shibuya Xing
             </p>
             <h2
-              className="text-[clamp(32px,4.5vw,54px)] font-bold text-[#f5f0eb]"
+              className="text-sm font-medium text-[#f5f0eb]"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               The Space
@@ -613,38 +578,6 @@ export default function HomePage() {
         </StaggerContainer>
       </section>
 
-      {/* RESERVE CTA */}
-      <section className="py-32 relative overflow-hidden bg-[#080808]">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 100% 100% at 50% 50%, rgba(196,18,48,0.05) 0%, transparent 70%)",
-          }}
-        />
-        <div className="absolute inset-0 crossing-grid opacity-40" />
-        <AnimatedSection className="relative z-10 text-center px-6">
-          <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-6 font-medium">
-            Join Us
-          </p>
-          <h2
-            className="text-[clamp(36px,6vw,80px)] font-bold text-[#f5f0eb] leading-tight mb-6 max-w-3xl mx-auto"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            Reserve Your Table
-          </h2>
-          <p className="text-[#787878] text-base max-w-xl mx-auto mb-12 leading-relaxed">
-            Experience the soul of Shibuya in the heart of Bangalore. Book your seat at the crossing.
-          </p>
-          <Link
-            href="https://reservations.petpooja.com/form/paidformperpax/f6b98aa9aecea9415aa032c0c57cefaac7ad50cde2469ff09ce9a459c11007258a7380430e0c4abb6912be5a85f35c85971ad72749fc89eef8aebf34050261f98b977b6aa68e06e05b9bde3790ab513d70607ef5be40b8e1a485966a9607a8da" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-[#C41230] text-[#080808] px-10 py-4 text-xs tracking-[0.3em] uppercase font-semibold hover:bg-[#E8394D] transition-all duration-300 group"
-          >
-            Make a Reservation
-            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </AnimatedSection>
-      </section>
     </>
   );
 }

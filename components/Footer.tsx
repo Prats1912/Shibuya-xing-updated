@@ -83,7 +83,7 @@ export default function Footer() {
                 <p className="text-[#787878] text-xs tracking-widest uppercase mb-1">
                   Mon — Thu
                 </p>
-                <p className="text-[#f5f0eb] text-sm">12:00 PM — 11:00 PM</p>
+                <p className="text-[#f5f0eb] text-sm">12:00 PM — 11:30 PM</p>
               </div>
               <div className="pt-2">
                 <p className="text-[#787878] text-xs tracking-widest uppercase mb-1">

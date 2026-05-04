@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Shippori_Mincho, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const shipporiMincho = Shippori_Mincho({
+const reggaeOne = localFont({
+  src: "./fonts/ReggaeOne-Regular.ttf",
   variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 const inter = Inter({
@@ -21,6 +22,10 @@ export const metadata: Metadata = {
   description:
     "Pan-Asian dining in the heart of Indiranagar, Bangalore. Inspired by Tokyo's iconic Shibuya Crossing, we bring the soul of Asia to your table.",
   keywords: ["pan asian restaurant", "bangalore", "indiranagar", "japanese food", "sushi", "dim sum", "asian cuisine"],
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -29,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${shipporiMincho.variable} ${inter.variable}`}>
+    <html lang="en" className={`${reggaeOne.variable} ${inter.variable}`}>
       <body className="bg-bg-primary text-warm-white font-sans antialiased overflow-x-hidden">
         <Navbar />
         <main>{children}</main>

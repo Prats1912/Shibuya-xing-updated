@@ -51,8 +51,7 @@ const OVERLAYS: Overlay[] = [
     from: 0.84,
     to: 1.0,
     label: "Shibuya Xing · Indiranagar",
-    heading: "Reserve Your Table.",
-    cta: true,
+    heading: "One Crossing.\nUnforgettable.",
   },
 ];
 
@@ -295,8 +294,16 @@ export default function RamenScrollSection() {
                 }}
               >
                 <p
-                  className="text-[#C41230] font-medium uppercase mb-3"
-                  style={{ fontSize: "9px", letterSpacing: "0.45em" }}
+                  className="font-bold uppercase mb-3"
+                  style={{
+                    fontSize: i === 3 ? "clamp(16px, 4vw, 22px)" : "9px",
+                    letterSpacing: i === 3 ? "0.25em" : "0.45em",
+                    background: i === 3 ? "linear-gradient(180deg, #6B0000 0%, #C41230 25%, #E84020 45%, #E8902A 70%, #F5D070 100%)" : undefined,
+                    WebkitBackgroundClip: i === 3 ? "text" : undefined,
+                    WebkitTextFillColor: i === 3 ? "transparent" : undefined,
+                    backgroundClip: i === 3 ? "text" : undefined,
+                    color: i === 3 ? undefined : "#C41230",
+                  }}
                 >
                   {overlay.label}
                 </p>
@@ -355,8 +362,16 @@ export default function RamenScrollSection() {
             >
               <div className="w-full">
                 <p
-                  className="text-[#C41230] font-medium uppercase mb-4"
-                  style={{ fontSize: "clamp(9px, 0.85vw, 11px)", letterSpacing: "0.5em" }}
+                  className="font-bold uppercase mb-4"
+                  style={{
+                    fontSize: i === 3 ? "clamp(18px, 2vw, 28px)" : "clamp(9px, 0.85vw, 11px)",
+                    letterSpacing: i === 3 ? "0.2em" : "0.5em",
+                    background: i === 3 ? "linear-gradient(180deg, #6B0000 0%, #C41230 25%, #E84020 45%, #E8902A 70%, #F5D070 100%)" : undefined,
+                    WebkitBackgroundClip: i === 3 ? "text" : undefined,
+                    WebkitTextFillColor: i === 3 ? "transparent" : undefined,
+                    backgroundClip: i === 3 ? "text" : undefined,
+                    color: i === 3 ? undefined : "#C41230",
+                  }}
                 >
                   {overlay.label}
                 </p>

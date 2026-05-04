@@ -11,6 +11,7 @@ const eslintConfig = defineConfig([
     ".next/**",
     "out/**",
     "build/**",
+    "shibuya-xing/**",
     "next-env.d.ts",
   ]),
 ]);

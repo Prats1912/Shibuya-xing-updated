@@ -3,7 +3,6 @@
 import Image from "next/image";
 import AnimatedSection, { StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 export default function AboutPage() {
   return (
@@ -19,11 +18,11 @@ export default function AboutPage() {
         />
         <div className="absolute inset-0 crossing-grid opacity-30" />
         <AnimatedSection className="relative z-10 max-w-7xl mx-auto">
-          <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-4 font-medium">
+          <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">
             Our Story
           </p>
           <h1
-            className="text-[clamp(48px,8vw,96px)] font-black text-[#f5f0eb] uppercase leading-none tracking-tight mb-4"
+            className="text-base font-semibold text-[#f5f0eb] uppercase leading-none tracking-tight mb-4"
             style={{ fontFamily: "var(--font-playfair)" }}
           >
             About
@@ -42,11 +41,11 @@ export default function AboutPage() {
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           <AnimatedSection direction="left">
-            <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-6 font-medium">
+            <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-4 font-bold">
               The Idea
             </p>
             <h2
-              className="text-[clamp(32px,4vw,50px)] font-bold text-[#f5f0eb] leading-tight mb-8"
+              className="text-sm font-medium text-[#f5f0eb] leading-tight mb-8"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               Born at the World&apos;s Most Famous{" "}
@@ -118,11 +117,11 @@ export default function AboutPage() {
       {/* Vision & Mission */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <AnimatedSection className="text-center mb-16">
-          <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-4 font-medium">
+          <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">
             What Drives Us
           </p>
           <h2
-            className="text-[clamp(32px,4.5vw,54px)] font-bold text-[#f5f0eb]"
+            className="text-sm font-medium text-[#f5f0eb]"
             style={{ fontFamily: "var(--font-playfair)" }}
           >
             Vision & Mission
@@ -138,23 +137,18 @@ export default function AboutPage() {
                 style={{ fontFamily: "var(--font-playfair)" }}>
                 V
               </div>
-              <span className="text-[#C41230] text-[9px] tracking-[0.5em] uppercase font-medium block mb-4">
+              <span className="text-[#C41230] text-lg tracking-[0.1em] uppercase font-bold block mb-3">
                 Our Vision
               </span>
               <h3
                 className="text-[#f5f0eb] text-2xl font-bold mb-6"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
-                To Be the Crossing Where the World Meets at the Table
+                Where the World Meets at One Table
               </h3>
               <p className="text-[#787878] text-sm leading-[2]">
-                Inspired by the spirit of Tokyo&apos;s Shibuya — where millions of lives intersect
-                in a single moment — our vision is to create a dining destination that transcends
-                geography. We see Shibuya Xing as more than a restaurant; it is a living
-                intersection of cultures, traditions, and stories, where every guest arrives
-                as a stranger and leaves as part of something larger. We envision a Bangalore
-                where world-class Pan-Asian cuisine is not a luxury, but a shared experience —
-                elegant, emotional, and deeply human.
+                Inspired by Tokyo&apos;s Shibuya spirit, we unite people beyond borders —
+                crafting experiences that transcend taste through tradition, elegance, and emotion.
               </p>
             </div>
           </AnimatedSection>
@@ -167,24 +161,19 @@ export default function AboutPage() {
                 style={{ fontFamily: "var(--font-playfair)" }}>
                 M
               </div>
-              <span className="text-[#C41230] text-[9px] tracking-[0.5em] uppercase font-medium block mb-4">
+              <span className="text-[#C41230] text-lg tracking-[0.1em] uppercase font-bold block mb-3">
                 Our Mission
               </span>
               <h3
                 className="text-[#f5f0eb] text-2xl font-bold mb-6"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
-                To Craft Experiences That Transcend Taste
+                One Crossing. Every Day.
               </h3>
               <p className="text-[#787878] text-sm leading-[2]">
-                Every dish we serve is an act of intention. Our mission is to honour the
-                soul of each Asian culinary tradition — its ingredients, its technique, its
-                history — while weaving it into an experience that feels entirely of this
-                moment. Through elegance in presentation, warmth in service, and depth in
-                flavour, we strive to make every visit to Shibuya Xing a memory that
-                lingers long after the last bite. We exist to bring people together — across
-                borders, backgrounds, and beliefs — at one table, one crossing, one
-                unforgettable meal at a time.
+                To honour the soul of Asia&apos;s culinary traditions and bring them together
+                at one table — with intention in every dish, warmth in every interaction,
+                and elegance in every detail.
               </p>
             </div>
           </AnimatedSection>
@@ -195,11 +184,11 @@ export default function AboutPage() {
       <section className="py-24 bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-6">
           <AnimatedSection className="text-center mb-16">
-            <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-4 font-medium">
+            <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">
               What We Stand For
             </p>
             <h2
-              className="text-[clamp(32px,4.5vw,54px)] font-bold text-[#f5f0eb]"
+              className="text-sm font-medium text-[#f5f0eb]"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               The Philosophy
@@ -232,7 +221,7 @@ export default function AboutPage() {
               <StaggerItem key={item.label}>
                 <div className="text-center group">
                   <div
-                    className="text-5xl text-[#C41230]/40 mb-5 group-hover:text-[#C41230]/70 transition-colors duration-500"
+                    className="text-5xl text-[#E8394D] mb-5 group-hover:text-[#FF4D63] transition-colors duration-500"
                     style={{ fontFamily: "serif" }}
                   >
                     {item.symbol}
@@ -256,7 +245,7 @@ export default function AboutPage() {
           <div className="absolute inset-0 crossing-grid opacity-20" />
           <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
             <div>
-              <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-4 font-medium">
+              <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">
                 Find Us
               </p>
               <h3
@@ -271,13 +260,6 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="flex flex-col gap-3">
-              <Link
-                href="https://reservations.petpooja.com/form/paidformperpax/f6b98aa9aecea9415aa032c0c57cefaac7ad50cde2469ff09ce9a459c11007258a7380430e0c4abb6912be5a85f35c85971ad72749fc89eef8aebf34050261f98b977b6aa68e06e05b9bde3790ab513d70607ef5be40b8e1a485966a9607a8da" target="_blank" rel="noopener noreferrer"
-                className="bg-[#C41230] text-[#080808] px-8 py-3.5 text-xs tracking-[0.25em] uppercase font-semibold hover:bg-[#E8394D] transition-all duration-300 flex items-center gap-2 group whitespace-nowrap"
-              >
-                Reserve a Table
-                <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
               <Link
                 href="/contact"
                 className="border border-[#262626] text-[#f5f0eb]/60 px-8 py-3.5 text-xs tracking-[0.25em] uppercase hover:border-[#C41230] hover:text-[#C41230] transition-all duration-300 text-center"

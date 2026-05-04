@@ -1,221 +1,427 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import AnimatedSection, { StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import AnimatedSection from "@/components/AnimatedSection";
 
-interface MenuItem {
-  name: string;
-  desc: string;
-  price?: string;
-  tag?: string;
+/* ── Veg / Non-veg indicator ── */
+function VegDot({ veg }: { veg: boolean }) {
+  return (
+    <span
+      className="shrink-0 mt-1 inline-flex items-center justify-center w-4 h-4 border"
+      style={{ borderColor: veg ? "rgba(74,160,74,0.6)" : "rgba(160,40,40,0.6)" }}
+    >
+      <span
+        className="w-1.5 h-1.5 rounded-full block"
+        style={{ background: veg ? "rgba(74,160,74,0.75)" : "rgba(160,40,40,0.75)" }}
+      />
+    </span>
+  );
 }
 
-interface MenuCategory {
-  id: string;
-  label: string;
-  subtitle: string;
-  items: MenuItem[];
-}
+/* ── Data ── */
+interface Item { name: string; desc?: string; veg: boolean; tag?: string; }
+interface Category { id: string; label: string; items: Item[]; }
+interface Section { id: string; label: string; subtitle: string; categories: Category[]; showVegDot?: boolean; }
 
-const menuData: MenuCategory[] = [
+const PETPOOJA_URL = "https://reservations.petpooja.com/form/paidformperpax/f6b98aa9aecea9415aa032c0c57cefaac7ad50cde2469ff09ce9a459c11007258a7380430e0c4abb6912be5a85f35c85971ad72749fc89eef8aebf34050261f98b977b6aa68e06e05b9bde3790ab513d70607ef5be40b8e1a485966a9607a8da";
+
+const SECTIONS: Section[] = [
   {
-    id: "starters",
-    label: "Appetizers",
-    subtitle: "Soups, salads & small bites",
-    items: [
-      { name: "Pho", desc: "Vietnamese clear broth with rice noodles, fresh herbs and tofu", price: "₹300", tag: "Veg" },
-      { name: "Tom Yum", desc: "Classic Thai hot & sour broth with mushrooms and galangal", price: "₹375" },
-      { name: "Thai Coconut Soup", desc: "Creamy Thai coconut milk soup with lemongrass and kaffir lime", price: "₹300", tag: "Veg" },
-      { name: "Thai Glass Noodle Salad", desc: "Tangy glass noodles tossed with fresh vegetables and Thai herbs", price: "₹375", tag: "Veg" },
-      { name: "Korean Gochujang Cauliflower", desc: "Crispy cauliflower glazed with spicy Korean gochujang sauce", price: "₹395", tag: "Veg" },
-      { name: "Japanese Vegetable Gyoza", desc: "Pan-fried vegetable dumplings with ponzu dipping sauce", price: "₹350", tag: "Veg" },
-      { name: "Mix Vegetable Tempura", desc: "Seasonal vegetables in a light Japanese tempura batter", price: "₹375", tag: "Veg" },
-      { name: "Crispy Prawns Tempura", desc: "Tiger prawns in crispy Japanese batter with dipping sauce", price: "₹450" },
-      { name: "Japanese Karaage", desc: "Japanese-style fried chicken, crispy and juicy, with kewpie mayo", price: "₹425", tag: "Chef's Pick" },
-      { name: "Thai Lemongrass Chicken Skewers", desc: "Grilled chicken marinated in fresh lemongrass and aromatic herbs", price: "₹525" },
-      { name: "Teriyaki Chicken Wings", desc: "Glazed chicken wings with sweet teriyaki sauce and sesame", price: "₹425" },
-      { name: "Korean Yangnyeom Chicken", desc: "Crispy fried chicken tossed in sweet and spicy Korean sauce", price: "₹475" },
+    id: "food",
+    label: "Food",
+    subtitle: "From the Kitchen",
+    categories: [
+      {
+        id: "soup", label: "Soup",
+        items: [
+          { name: "Pho", veg: true },
+          { name: "Thai Coconut Soup", veg: true },
+          { name: "Thai Beetroot Soup", veg: true },
+          { name: "Japanese Clear Soup", veg: true },
+          { name: "Chicken Lung Fung", veg: false },
+          { name: "Tom Yum", veg: false },
+        ],
+      },
+      {
+        id: "salads", label: "Salads",
+        items: [
+          { name: "Thai Glass Noodle Salad", veg: true },
+          { name: "Japanese Mayonaise Lettuce", veg: true },
+          { name: "Asian Snow Fungus", veg: true },
+          { name: "Japanese Mayo Chicken", veg: false },
+        ],
+      },
+      {
+        id: "appetizers", label: "Appetizers",
+        items: [
+          { name: "Korean Gochujang Cauliflower", veg: true },
+          { name: "Crispy Lotus Stem", veg: true },
+          { name: "Honey Chili Fries", veg: true },
+          { name: "Japanese Vegetable Gyoza", veg: true },
+          { name: "Mix Vegetable Tempura", veg: true },
+          { name: "Spicy Korean Tofu", veg: true },
+          { name: "Teriyaki Chicken Wings", veg: false },
+          { name: "Crispy Prawns Tempura", veg: false },
+          { name: "Thai Lemongrass Chicken Skewers", veg: false },
+          { name: "Japanese Chicken Gyoza", veg: false },
+          { name: "Chilli Basil Fish", veg: false },
+          { name: "Japanese Karaage", veg: false, tag: "Chef's Pick" },
+          { name: "Korean Yangnyeom Chicken", veg: false },
+          { name: "Korean Fried Ganjang Chicken", veg: false },
+          { name: "Korean Huraideu Chicken", veg: false },
+          { name: "Japanese Style Shrimps", veg: false },
+          { name: "Japanese Egg Chilli", veg: false },
+        ],
+      },
+      {
+        id: "yakitori", label: "Yakitori",
+        items: [
+          { name: "Spicy Pineapple & Tofu Yakitori", veg: true },
+          { name: "Sweet & Spicy Mushroom Yakitori", veg: true },
+          { name: "Sesame Honey Chilli Paneer Yakitori", veg: true },
+          { name: "Sour & Spicy Lemon Chili Veggies Yakitori", veg: true },
+          { name: "Spicy Gochujang Chicken Yakitori", veg: false, tag: "Chef's Pick" },
+          { name: "Garlic Butter Prawn Yakitori", veg: false },
+          { name: "Smoky Chili Garlic Squid Yakitori", veg: false },
+          { name: "Teriyaki Sea Bass Yakitori", veg: false },
+        ],
+      },
+      {
+        id: "dimsum", label: "Dim Sum",
+        items: [
+          { name: "Paneer & Chilli Dim Sum", veg: true },
+          { name: "Spiced Vegetable Dim Sum", veg: true },
+          { name: "Corn & Cheese Steamed Dim Sum", veg: true },
+          { name: "Chicken Teriyaki Dim Sum", veg: false },
+          { name: "Prawn Hargao Dim Sum", veg: false },
+          { name: "Spicy Fish Dim Sum", veg: false },
+        ],
+      },
+      {
+        id: "sushi", label: "Sushi",
+        items: [
+          { name: "Avocado & Cucumber Roll", veg: true },
+          { name: "Mix Veg Maki Roll", veg: true },
+          { name: "Caterpillar Uramaki Roll", veg: true },
+          { name: "Nigiri Avocado", veg: true },
+          { name: "House Veg Maki Roll", veg: true },
+          { name: "California Crab Stick Roll", veg: false },
+          { name: "California Crab Stick Roll (Spicy)", veg: false },
+          { name: "Prawn Tempura Roll", veg: false },
+          { name: "Spicy Grilled Fish Roll", veg: false },
+          { name: "Salmon Roll", veg: false },
+          { name: "White Tuna Roll", veg: false },
+          { name: "Black Tuna Maki Roll", veg: false },
+          { name: "Tuna Nigiri Roll", veg: false },
+        ],
+      },
+      {
+        id: "bao", label: "Bao",
+        items: [
+          { name: "Char Siu Bao", veg: true },
+          { name: "Veg Bao", veg: true },
+          { name: "Chicken Bao", veg: false },
+          { name: "Prawn Bao", veg: false },
+        ],
+      },
+      {
+        id: "curries", label: "Asian Curries",
+        items: [
+          { name: "Thai Green Curry", veg: true },
+          { name: "Veg Malaysian Rendang Curry", veg: true },
+          { name: "Thai Yellow Curry", veg: true },
+          { name: "Malaysian Rendang Curry", veg: false },
+        ],
+      },
+      {
+        id: "ramen", label: "Ramen",
+        items: [
+          { name: "Spicy Tofu Miso Ramen", veg: true },
+          { name: "Shoyu Mushroom Ramen", veg: true },
+          { name: "Mix Veggie Delight Shio Ramen", veg: true },
+          { name: "Spicy Korean Chicken Ramen", veg: false, tag: "Chef's Pick" },
+          { name: "Shoyu Grilled Chicken Ramen", veg: false },
+          { name: "Spicy Chicken Miso Ramen", veg: false },
+          { name: "Seafood Shio Ramen", veg: false },
+          { name: "Spicy Prawn Miso Ramen", veg: false },
+          { name: "Shoyu Fish Ramen", veg: false },
+          { name: "Surf & Turf Ramen", veg: false, tag: "Signature" },
+        ],
+      },
+      {
+        id: "teppanyaki", label: "Teppanyaki & Mains",
+        items: [
+          { name: "Spicy Paneer Teppan Meal", veg: true },
+          { name: "Teriyaki Veggie Rice Meal", veg: true },
+          { name: "Indo-Thai Tofu Teppan Bowl", veg: true },
+          { name: "Chicken Teppan Tikka Noodle Meal", veg: false },
+          { name: "Bangkok Chicken Rice Bowl Meal", veg: false, tag: "Chef's Pick" },
+          { name: "Prawn Teppanyaki Rice Meal", veg: false },
+          { name: "Fish Masala Teppan Meal", veg: false },
+          { name: "Japanese Fried Rice Squid Meal", veg: false },
+          { name: "Asian Steamed Fish Thai Rice Meal", veg: false },
+        ],
+      },
+      {
+        id: "desserts", label: "Desserts",
+        items: [
+          { name: "Matcha Mousse With Crushed Biscuit Base", veg: true },
+          { name: "Mango Mochi With Ice Cream Filling", veg: true },
+          { name: "Black Sesame & Coconut Pudding", veg: true },
+          { name: "Lychee & Rose Jelly Cups", veg: true },
+          { name: "Thai Sticky Rice With Coconut & Jaggery", veg: true },
+          { name: "Darshan With Ice Cream", veg: true },
+          { name: "Vietnamese Coffee And Cream Jelly", veg: true },
+          { name: "Japanese Cheesecake", veg: false },
+        ],
+      },
     ],
   },
   {
-    id: "yakitori",
-    label: "Yakitori",
-    subtitle: "Japanese grilled skewers",
-    items: [
-      { name: "Spicy Pineapple & Tofu Yakitori", desc: "Grilled tofu and pineapple skewers with spicy glaze", price: "₹495", tag: "Veg" },
-      { name: "Sweet & Spicy Mushroom Yakitori", desc: "Chargrilled mushroom skewers with sweet chili glaze", price: "₹495", tag: "Veg" },
-      { name: "Sesame Honey Chilli Paneer Yakitori", desc: "Grilled paneer skewers with sesame, honey and chilli", price: "₹495", tag: "Veg" },
-      { name: "Spicy Gochujang Chicken Yakitori", desc: "Juicy chicken skewers marinated in bold Korean gochujang paste", price: "₹595", tag: "Chef's Pick" },
-      { name: "Garlic Butter Prawn Yakitori", desc: "Chargrilled prawns brushed with garlic butter and herbs", price: "₹695" },
-      { name: "Smoky Chili Garlic Squid Yakitori", desc: "Tender squid skewers with smoky chili garlic marinade", price: "₹695" },
-      { name: "Teriyaki Sea Bass Yakitori", desc: "Sea bass fillets glazed with house teriyaki sauce", price: "₹695" },
+    id: "cocktails",
+    label: "Cocktails",
+    subtitle: "From the Bar",
+    showVegDot: false,
+    categories: [
+      {
+        id: "kombucha", label: "Kombucha",
+        items: [
+          { name: "Blueberry Kombucha", veg: true },
+          { name: "Cola Kombucha", veg: true },
+          { name: "Salted Lime Kombucha", veg: true },
+          { name: "Peach Kombucha", veg: true },
+          { name: "Yuzu Kombucha", veg: true },
+          { name: "Ginger Kombucha", veg: true },
+        ],
+      },
+      {
+        id: "mocktails", label: "Mocktails",
+        items: [
+          { name: "Strawberry Basil Mojito", veg: true },
+          { name: "Apple Mint Cooler", veg: true },
+          { name: "Lemonade", veg: true },
+          { name: "Seoul Sunset", veg: true },
+          { name: "Unexpected Waves", veg: true },
+          { name: "Classic Virgin Mojito", veg: true },
+          { name: "Thai Basil Mojito", veg: true },
+          { name: "Alligator Berry Cool", veg: true },
+          { name: "Mango Colada", veg: true },
+          { name: "Lemongrass Kombucha", veg: true },
+        ],
+      },
+      {
+        id: "wine", label: "Wine",
+        items: [
+          { name: "Jacob Creek Cabernet", veg: true },
+          { name: "Jacob Creek Merlot", veg: true },
+          { name: "Sula Dindori", veg: true },
+          { name: "Sula Shiraz Cabernet", veg: true },
+          { name: "Campo Viejo Tempranillo", veg: true },
+          { name: "Jacob Creek Chardonnay", veg: true },
+          { name: "Born West Chardonnay", veg: true },
+          { name: "Fratelli Chenin Blanc", veg: true },
+          { name: "Sula Brut", veg: true },
+          { name: "Noi", veg: true },
+          { name: "Sula Zinfandel", veg: true },
+          { name: "Ziva", veg: true },
+          { name: "White Wine Sangria", veg: true },
+          { name: "Sangria Red Wine", veg: true },
+          { name: "Mimosa", veg: true },
+          { name: "Cranberry Wine Sour", veg: true },
+          { name: "Rose Fuzz", veg: true },
+        ],
+      },
     ],
   },
   {
-    id: "sushi",
-    label: "Sushi",
-    subtitle: "Japanese precision",
-    items: [
-      { name: "Avocado & Cucumber Roll", desc: "Classic veg maki with creamy avocado and crisp cucumber", price: "₹425", tag: "Veg" },
-      { name: "Caterpillar Uramaki Roll", desc: "Inside-out roll topped with avocado slices and sweet sauce", price: "₹475", tag: "Veg" },
-      { name: "House Veg Maki Roll", desc: "Seasonal vegetables rolled in nori and sushi rice", price: "₹475", tag: "Veg" },
-      { name: "California Crab Stick Roll", desc: "Crab stick, cucumber and avocado in a classic California roll", price: "₹695" },
-      { name: "Prawn Tempura Roll", desc: "Crispy prawn tempura rolled with avocado and spicy mayo", price: "₹695", tag: "Chef's Pick" },
-      { name: "Salmon Roll", desc: "Fresh salmon, cucumber and cream cheese in a nori roll", price: "₹695" },
-      { name: "Spicy Grilled Fish Roll", desc: "Grilled fish with spicy chili paste and pickled vegetables", price: "₹695" },
-      { name: "Black Tuna Maki Roll", desc: "Premium tuna wrapped in nori with toasted sesame and black rice", price: "₹795" },
-      { name: "Tuna Nigiri Roll", desc: "Fresh tuna over hand-pressed sushi rice", price: "₹725" },
-    ],
-  },
-  {
-    id: "dimsum",
-    label: "Dim Sum",
-    subtitle: "Chinese soul",
-    items: [
-      { name: "Paneer & Chilli Dim Sum", desc: "Steamed dumplings filled with spiced paneer and green chilli", price: "₹350", tag: "Veg" },
-      { name: "Spiced Vegetable Dim Sum", desc: "Delicate steamed dumplings with an aromatic vegetable filling", price: "₹350", tag: "Veg" },
-      { name: "Corn & Cheese Steamed Dim Sum", desc: "Soft steamed dumplings with sweet corn and cheese filling", price: "₹450", tag: "Veg" },
-      { name: "Chicken Teriyaki Dim Sum", desc: "Steamed chicken dumplings with a teriyaki glaze", price: "₹400", tag: "Chef's Pick" },
-      { name: "Prawn Hargao Dim Sum", desc: "Classic Cantonese steamed prawn dumplings in translucent skin", price: "₹500" },
-      { name: "Spicy Fish Dim Sum", desc: "Steamed fish dumplings with a spicy chili dipping sauce", price: "₹500" },
-    ],
-  },
-  {
-    id: "bao-curries",
-    label: "Bao & Curries",
-    subtitle: "Steamed buns & Asian broths",
-    items: [
-      { name: "Veg Bao", desc: "Fluffy steamed bao bun with seasoned vegetable filling", price: "₹425", tag: "Veg" },
-      { name: "Char Siu Bao", desc: "Steamed bao with BBQ-glazed filling and hoisin sauce", price: "₹549" },
-      { name: "Chicken Bao", desc: "Soft steamed bun stuffed with teriyaki glazed chicken", price: "₹549", tag: "Chef's Pick" },
-      { name: "Prawn Bao", desc: "Steamed bao bun with plump spiced prawns and sriracha mayo", price: "₹549" },
-      { name: "Thai Green Curry", desc: "Fragrant coconut milk curry with fresh herbs and seasonal vegetables", price: "₹595", tag: "Veg" },
-      { name: "Thai Yellow Curry", desc: "Mild coconut yellow curry with turmeric and lemongrass", price: "₹595", tag: "Veg" },
-      { name: "Veg Malaysian Rendang Curry", desc: "Slow-cooked Malaysian spiced curry with coconut milk and vegetables", price: "₹595", tag: "Veg" },
-      { name: "Malaysian Rendang Curry", desc: "Rich, slow-cooked Malaysian curry with deep spiced coconut gravy", price: "₹749" },
-    ],
-  },
-  {
-    id: "ramen",
-    label: "Ramen",
-    subtitle: "Bowls built with intention",
-    items: [
-      { name: "Spicy Tofu Miso Ramen", desc: "Silken tofu in a rich miso broth with chili oil and spring onions", price: "₹525", tag: "Veg" },
-      { name: "Shoyu Mushroom Ramen", desc: "Soy-seasoned broth with king oyster mushrooms and nori", price: "₹525", tag: "Veg" },
-      { name: "Mix Veggie Delight Shio Ramen", desc: "Light salt-based broth with seasonal vegetables and wheat noodles", price: "₹525", tag: "Veg" },
-      { name: "Spicy Korean Chicken Ramen", desc: "Fiery Korean-spiced broth with chicken and gochujang paste", price: "₹575", tag: "Chef's Pick" },
-      { name: "Shoyu Grilled Chicken Ramen", desc: "Soy broth with char-grilled chicken, soft egg and bamboo shoots", price: "₹575" },
-      { name: "Spicy Chicken Miso Ramen", desc: "Miso-based broth with spiced chicken, nori and sesame oil", price: "₹575" },
-      { name: "Seafood Shio Ramen", desc: "Delicate salt broth with mixed seafood and fresh garnishes", price: "₹675" },
-      { name: "Spicy Prawn Miso Ramen", desc: "Bold miso broth with prawns, chili butter and spring onions", price: "₹675" },
-      { name: "Shoyu Fish Ramen", desc: "Soy-based fish broth with fillet, soft egg and seaweed", price: "₹675" },
-      { name: "Surf & Turf Ramen", desc: "Premium broth with grilled meat and seafood, soft egg, nori and bamboo shoots", price: "₹725", tag: "Signature" },
-    ],
-  },
-  {
-    id: "mains",
-    label: "Teppanyaki & Mains",
-    subtitle: "Sizzling plates & rice bowls",
-    items: [
-      { name: "Spicy Paneer Teppan Meal", desc: "Teppanyaki-style spiced paneer with vegetables and steamed rice", price: "₹699", tag: "Veg" },
-      { name: "Teriyaki Veggie Rice Meal", desc: "Grilled vegetables with teriyaki glaze over Japanese steamed rice", price: "₹599", tag: "Veg" },
-      { name: "Indo-Thai Tofu Teppan Bowl", desc: "Crispy tofu with Indo-Thai spices on a sizzling teppan plate", price: "₹699", tag: "Veg" },
-      { name: "Bangkok Chicken Rice Bowl Meal", desc: "Thai-spiced chicken over jasmine rice with peanut sauce", price: "₹699", tag: "Chef's Pick" },
-      { name: "Chicken Teppan Tikka Noodle Meal", desc: "Teppanyaki chicken tikka served with wok-tossed noodles", price: "₹699" },
-      { name: "Prawn Teppanyaki Rice Meal", desc: "Sizzling prawns with garlic butter on a teppan with steamed rice", price: "₹799" },
-      { name: "Fish Masala Teppan Meal", desc: "Spiced fish fillet sizzled on the teppan with masala sauce", price: "₹799" },
-      { name: "Japanese Fried Rice Squid Meal", desc: "Wok-fried Japanese rice with tender squid and soy seasoning", price: "₹799" },
-      { name: "Asian Steamed Fish Thai Rice Meal", desc: "Steamed fish with aromatic Thai herbs over fragrant rice", price: "₹799" },
-    ],
-  },
-  {
-    id: "desserts",
-    label: "Desserts",
-    subtitle: "Sweet endings",
-    items: [
-      { name: "Matcha Mousse", desc: "Airy Japanese matcha mousse with crushed biscuit base", price: "₹325", tag: "Chef's Pick" },
-      { name: "Mango Mochi", desc: "Soft mochi filled with creamy mango ice cream", price: "₹325" },
-      { name: "Black Sesame & Coconut Pudding", desc: "Silky coconut pudding layered with toasted black sesame", price: "₹325" },
-      { name: "Lychee & Rose Jelly Cups", desc: "Delicate lychee jelly with rose water and fresh fruit", price: "₹325" },
-      { name: "Thai Sticky Rice", desc: "Warm sticky rice with coconut cream and palm jaggery", price: "₹325", tag: "Veg" },
-      { name: "Vietnamese Coffee Cream Jelly", desc: "Vietnamese drip coffee set in a silky cream jelly", price: "₹325" },
-      { name: "Japanese Cheesecake", desc: "Light, jiggly Japanese-style cheesecake with a golden top", price: "₹325" },
-    ],
-  },
-  {
-    id: "drinks",
-    label: "Drinks",
-    subtitle: "Mocktails, sake & more",
-    items: [
-      { name: "Seoul Sunset", desc: "A vibrant citrus and berry blend inspired by the Korean cityscape", price: "₹249" },
-      { name: "Strawberry Basil Mojito", desc: "Fresh strawberry and basil with lime, mint and soda", price: "₹289" },
-      { name: "Apple Mint Cooler", desc: "Chilled apple juice with fresh mint and a hint of ginger", price: "₹289" },
-      { name: "Unexpected Waves", desc: "A refreshing tropical blend that surprises with every sip", price: "₹249" },
-      { name: "Mango Colada", desc: "Creamy mango and coconut blend, served chilled", price: "₹299" },
-      { name: "Lemongrass Kombucha", desc: "Fermented kombucha with fresh lemongrass and citrus", price: "₹289" },
-      { name: "Sake Blossom", desc: "Japanese sake with delicate floral notes and cherry blossom essence", price: "₹699", tag: "Signature" },
-      { name: "White Mountain", desc: "Premium sake cocktail with a clean, crisp mountain-fresh finish", price: "₹649" },
-      { name: "White Wine Sangria", desc: "Chilled white wine sangria with fresh fruit and citrus zest", price: "₹689" },
-      { name: "Cranberry Wine Sour", desc: "Red wine with cranberry, lemon and a touch of sweetness", price: "₹649" },
+    id: "sake",
+    label: "Sake & Soju",
+    subtitle: "The Prime Attraction",
+    showVegDot: false,
+    categories: [
+      {
+        id: "sake-bottles", label: "Sake & Spirits",
+        items: [
+          { name: "Gekkeikan Traditional", veg: true },
+          { name: "Han Akita", veg: true },
+          { name: "Hakushika Sake", veg: true },
+          { name: "Hakusturu Sake", veg: true },
+          { name: "Sake Blossom", veg: true, tag: "Signature" },
+          { name: "White Mountain", veg: true },
+        ],
+      },
     ],
   },
 ];
 
-export default function MenuPage() {
-  const [active, setActive] = useState("starters");
+/* ── Section content with sidebar + scroll ── */
+function SectionContent({ section }: { section: Section }) {
+  const showVegDot = section.showVegDot !== false;
+  const [activeId, setActiveId] = useState(section.categories[0].id);
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const isClickScrolling = useRef(false);
 
-  const activeCategory = menuData.find((c) => c.id === active)!;
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isClickScrolling.current) return;
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveId(entry.target.id);
+        });
+      },
+      { rootMargin: "-35% 0px -55% 0px", threshold: 0 }
+    );
+    Object.values(sectionRefs.current).forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, [section.id]);
+
+  const scrollTo = (id: string) => {
+    isClickScrolling.current = true;
+    setActiveId(id);
+    const el = sectionRefs.current[id];
+    if (el) {
+      const offset = 68 + 56 + 56; // navbar + section tabs + category tabs
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+    setTimeout(() => { isClickScrolling.current = false; }, 800);
+  };
+
+  /* hide sidebar if only one category */
+  const showSidebar = section.categories.length > 1;
+
+  return (
+    <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10">
+      <div className="flex gap-12">
+        {/* Desktop sidebar */}
+        {showSidebar && (
+          <aside className="hidden lg:block w-52 shrink-0">
+            <div className="sticky top-[180px] space-y-1">
+              {section.categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => scrollTo(cat.id)}
+                  className="w-full text-left px-4 py-2.5 text-sm transition-all duration-200 rounded"
+                  style={{
+                    color: activeId === cat.id ? "#C41230" : "rgba(245,240,235,0.45)",
+                    borderLeft: activeId === cat.id ? "2px solid #C41230" : "2px solid transparent",
+                    background: activeId === cat.id ? "rgba(196,18,48,0.06)" : "transparent",
+                  }}
+                >
+                  {cat.label}
+                  <span className="text-[#4a4a4a] text-xs ml-1">({cat.items.length})</span>
+                </button>
+              ))}
+            </div>
+          </aside>
+        )}
+
+        {/* Items */}
+        <div className="flex-1 min-w-0 space-y-12">
+          {section.categories.map((cat) => (
+            <div
+              key={cat.id}
+              id={cat.id}
+              ref={(el) => { sectionRefs.current[cat.id] = el; }}
+            >
+              <div className="mb-6 pb-3 border-b border-[#1a1a1a]">
+                <h2 className="text-[#f5f0eb] text-xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>
+                  {cat.label}
+                </h2>
+                <p className="text-[#4a4a4a] text-xs mt-0.5">{cat.items.length} items</p>
+              </div>
+
+              <div className="divide-y divide-[#141414]">
+                {cat.items.map((item) => (
+                  <div key={item.name} className="flex items-start gap-4 py-4 group hover:bg-[#0d0d0d] -mx-3 px-3 transition-colors duration-200 rounded">
+                    {showVegDot && <VegDot veg={item.veg} />}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-[#f5f0eb] text-sm font-medium group-hover:text-white transition-colors">
+                          {item.name}
+                        </span>
+                        {item.tag && (
+                          <span className="text-[9px] tracking-[0.2em] uppercase px-2 py-0.5 border border-[#C41230]/40 text-[#C41230] font-medium shrink-0">
+                            {item.tag}
+                          </span>
+                        )}
+                      </div>
+                      {item.desc && (
+                        <p className="text-[#4a4a4a] text-xs mt-0.5 leading-relaxed">{item.desc}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          {/* Bottom note */}
+          <div className="pt-6 border-t border-[#1a1a1a] text-center">
+            <p className="text-[#4a4a4a] text-xs tracking-widest uppercase mb-4">
+              For allergies or special dietary requirements, please inform your server
+            </p>
+            <a
+              href={PETPOOJA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block border border-[#C41230] text-[#C41230] px-8 py-3 text-[10px] tracking-[0.3em] uppercase font-medium hover:bg-[#C41230] hover:text-[#080808] transition-all duration-300"
+            >
+              Reserve a Table
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function MenuPage() {
+  const [activeSectionId, setActiveSectionId] = useState(SECTIONS[0].id);
+  const activeSection = SECTIONS.find((s) => s.id === activeSectionId)!;
+
+  const switchSection = (id: string) => {
+    setActiveSectionId(id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <>
-      {/* Page Hero */}
-      <section className="relative pt-40 pb-20 px-6 overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 60% at 50% 20%, rgba(196,18,48,0.05) 0%, transparent 70%)",
-          }}
-        />
+      {/* Hero */}
+      <section className="relative pt-44 pb-16 px-6 overflow-hidden">
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 20%, rgba(196,18,48,0.05) 0%, transparent 70%)" }} />
         <div className="absolute inset-0 crossing-grid opacity-30" />
         <AnimatedSection className="relative z-10 max-w-7xl mx-auto">
-          <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-4 font-medium">
-            Shibuya Xing
-          </p>
-          <h1
-            className="text-[clamp(48px,8vw,96px)] font-black text-[#f5f0eb] uppercase leading-none tracking-tight mb-4"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            The Menu
+          <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">Shibuya Xing</p>
+          <h1 className="text-base font-semibold text-[#f5f0eb] uppercase leading-none tracking-tight mb-4" style={{ fontFamily: "var(--font-playfair)" }}>
+            Flavours
           </h1>
-          <div className="divider-gold max-w-xs mb-6" />
+          <div className="divider-gold max-w-xs mb-5" />
           <p className="text-[#787878] text-base max-w-lg leading-relaxed">
-            A journey across Asia — one crossing, many flavours. Every dish crafted
-            with intention, every ingredient chosen with care.
+            One crossing, many flavours. Every dish crafted with intention, every ingredient chosen with care.
           </p>
         </AnimatedSection>
       </section>
 
-      {/* Category tabs */}
-      <div className="sticky top-[68px] z-40 bg-[#080808]/95 backdrop-blur-md border-b border-[#262626]">
-        <div className="max-w-7xl mx-auto px-6 overflow-x-auto">
-          <div className="flex gap-0 min-w-max">
-            {menuData.map((cat) => (
+      {/* ── 3 main section tabs ── */}
+      <div className="sticky top-[68px] z-40 bg-[#080808]/95 backdrop-blur-md border-b border-[#1a1a1a]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex gap-0">
+            {SECTIONS.map((sec) => (
               <button
-                key={cat.id}
-                onClick={() => setActive(cat.id)}
-                className="relative px-5 py-4 text-[10px] tracking-[0.25em] uppercase font-medium transition-colors duration-200 whitespace-nowrap"
-                style={{ color: active === cat.id ? "#C41230" : "rgba(245,240,235,0.45)" }}
+                key={sec.id}
+                onClick={() => switchSection(sec.id)}
+                className="relative flex-1 md:flex-none px-8 py-4 text-xs tracking-[0.2em] uppercase font-medium transition-all duration-300"
+                style={{
+                  color: activeSectionId === sec.id ? "#f5f0eb" : "rgba(245,240,235,0.35)",
+                  borderBottom: activeSectionId === sec.id ? "2px solid #C41230" : "2px solid transparent",
+                }}
               >
-                {cat.label}
-                {active === cat.id && (
-                  <motion.div
-                    layoutId="tab-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-px bg-[#C41230]"
-                  />
+                {sec.label}
+                {sec.id === "sake" && (
+                  <span className="ml-2 text-[8px] tracking-[0.15em] uppercase px-1.5 py-0.5 border border-[#F5C200]/50 text-[#F5C200] align-middle">
+                    Prime
+                  </span>
                 )}
               </button>
             ))}
@@ -223,78 +429,13 @@ export default function MenuPage() {
         </div>
       </div>
 
-      {/* Menu items */}
-      <section className="py-20 px-6 max-w-7xl mx-auto min-h-[60vh]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            <div className="mb-12">
-              <h2
-                className="text-[clamp(28px,4vw,44px)] font-bold text-[#f5f0eb] mb-2"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                {activeCategory.label}
-              </h2>
-              <p className="text-[#C41230] text-xs tracking-[0.4em] uppercase">
-                {activeCategory.subtitle}
-              </p>
-            </div>
+      {/* ── Section label ── */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 pt-8 pb-2">
+        <p className="text-[#C41230] text-[11px] tracking-[0.4em] uppercase font-medium">{activeSection.subtitle}</p>
+      </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#1a1a1a]">
-              {activeCategory.items.map((item) => (
-                <div
-                  key={item.name}
-                  className="bg-[#080808] p-7 group hover:bg-[#0f0f0f] transition-colors duration-300 flex items-start justify-between gap-4"
-                >
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3
-                        className="text-[#f5f0eb] text-base font-semibold group-hover:text-[#ffc0c8] transition-colors duration-200"
-                        style={{ fontFamily: "var(--font-playfair)" }}
-                      >
-                        {item.name}
-                      </h3>
-                      {item.tag && (
-                        <span className="text-[9px] tracking-[0.2em] uppercase px-2 py-0.5 border border-[#C41230]/40 text-[#C41230] font-medium shrink-0">
-                          {item.tag}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-[#787878] text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </section>
-
-      {/* Reserve CTA */}
-      <section className="py-20 px-6 border-t border-[#1a1a1a]">
-        <AnimatedSection className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <p className="text-[#787878] text-sm mb-1">Ready to experience the crossing?</p>
-            <p
-              className="text-[#f5f0eb] text-xl font-semibold"
-              style={{ fontFamily: "var(--font-playfair)" }}
-            >
-              Book your table at Shibuya Xing
-            </p>
-          </div>
-          <Link
-            href="https://reservations.petpooja.com/form/paidformperpax/f6b98aa9aecea9415aa032c0c57cefaac7ad50cde2469ff09ce9a459c11007258a7380430e0c4abb6912be5a85f35c85971ad72749fc89eef8aebf34050261f98b977b6aa68e06e05b9bde3790ab513d70607ef5be40b8e1a485966a9607a8da" target="_blank" rel="noopener noreferrer"
-            className="bg-[#C41230] text-[#080808] px-8 py-3.5 text-xs tracking-[0.25em] uppercase font-semibold hover:bg-[#E8394D] transition-all duration-300 flex items-center gap-2 group whitespace-nowrap"
-          >
-            Reserve a Table
-            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </AnimatedSection>
-      </section>
+      {/* ── Section content ── */}
+      <SectionContent key={activeSectionId} section={activeSection} />
     </>
   );
 }

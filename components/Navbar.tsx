@@ -8,10 +8,11 @@ import { usePathname } from "next/navigation";
 import { Menu, X, Instagram, MapPin } from "lucide-react";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", label: "The Crossing" },
+  { href: "/about", label: "Our Soul" },
+  { href: "/menu", label: "Flavours" },
+  { href: "/gallery", label: "Moments" },
+  { href: "/contact", label: "Come Over" },
 ];
 
 export default function Navbar() {
@@ -25,11 +26,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
 
   const navBg =
     !isHome || scrolled
@@ -54,14 +50,22 @@ export default function Navbar() {
             className="object-contain h-14 w-auto"
             priority
           />
-          <div className="flex flex-col leading-none">
+          <div
+            className="flex flex-col leading-none"
+            style={{
+              background: "linear-gradient(180deg, #6B0000 0%, #C41230 25%, #E84020 45%, #E8902A 70%, #F5D070 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
             <span
-              className="text-[#f5f0eb] text-lg font-bold tracking-[0.25em] uppercase"
+              className="text-lg font-bold tracking-[0.25em] uppercase"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               Shibuya
             </span>
-            <span className="text-[#C41230] text-[10px] tracking-[0.6em] uppercase font-light -mt-0.5">
+            <span className="text-[10px] tracking-[0.6em] uppercase font-light -mt-0.5">
               Xing
             </span>
           </div>
@@ -95,18 +99,24 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
-            className="text-[rgba(245,240,235,0.5)] hover:text-[#C41230] transition-colors duration-300"
+            className="transition-all duration-300 hover:scale-110"
+            style={{ color: "#E8394D", filter: "drop-shadow(0 0 6px rgba(232,57,77,0.6))" }}
+            onMouseEnter={e => (e.currentTarget.style.filter = "drop-shadow(0 0 10px rgba(232,57,77,0.9))")}
+            onMouseLeave={e => (e.currentTarget.style.filter = "drop-shadow(0 0 6px rgba(232,57,77,0.6))")}
           >
-            <Instagram size={17} />
+            <Instagram size={20} />
           </a>
           <a
             href="https://maps.app.goo.gl/s3HhUMNRr2EmVPf78"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Google Maps"
-            className="text-[rgba(245,240,235,0.5)] hover:text-[#C41230] transition-colors duration-300"
+            className="transition-all duration-300 hover:scale-110"
+            style={{ color: "#F5C200", filter: "drop-shadow(0 0 6px rgba(245,194,0,0.55))" }}
+            onMouseEnter={e => (e.currentTarget.style.filter = "drop-shadow(0 0 10px rgba(245,194,0,0.9))")}
+            onMouseLeave={e => (e.currentTarget.style.filter = "drop-shadow(0 0 6px rgba(245,194,0,0.55))")}
           >
-            <MapPin size={17} />
+            <MapPin size={20} />
           </a>
           <div className="w-px h-4 bg-[#262626]" />
           <Link
@@ -147,6 +157,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={link.href}
+                    onClick={() => setMobileOpen(false)}
                     className="text-base tracking-[0.2em] uppercase font-medium transition-colors"
                     style={{
                       color:
@@ -185,20 +196,22 @@ export default function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
-                  className="flex items-center gap-2 text-[rgba(245,240,235,0.45)] hover:text-[#C41230] transition-colors duration-300"
+                  className="flex items-center gap-2 transition-all duration-300"
+                  style={{ color: "#E8394D", filter: "drop-shadow(0 0 5px rgba(232,57,77,0.5))" }}
                 >
-                  <Instagram size={16} />
-                  <span className="text-[10px] tracking-[0.3em] uppercase">@feastshibuya</span>
+                  <Instagram size={18} />
+                  <span className="text-[11px] tracking-[0.3em] uppercase font-medium">@feastshibuya</span>
                 </a>
                 <a
                   href="https://maps.app.goo.gl/s3HhUMNRr2EmVPf78"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Google Maps"
-                  className="flex items-center gap-2 text-[rgba(245,240,235,0.45)] hover:text-[#C41230] transition-colors duration-300"
+                  className="flex items-center gap-2 transition-all duration-300"
+                  style={{ color: "#F5C200", filter: "drop-shadow(0 0 5px rgba(245,194,0,0.45))" }}
                 >
-                  <MapPin size={16} />
-                  <span className="text-[10px] tracking-[0.3em] uppercase">Find Us</span>
+                  <MapPin size={18} />
+                  <span className="text-[11px] tracking-[0.3em] uppercase font-medium">Find Us</span>
                 </a>
               </motion.div>
             </div>
