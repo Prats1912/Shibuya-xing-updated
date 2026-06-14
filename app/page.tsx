@@ -183,7 +183,15 @@ const dishes = [
   },
 ];
 
-const galleryItems = [
+interface GalleryItem {
+  label: string;
+  className: string;
+  grad: string;
+  image: string;
+  desc?: string;
+}
+
+const galleryItems: GalleryItem[] = [
   { label: "Ambience", className: "col-span-2 row-span-2", grad: "from-[#0a0810] via-[#180f18] to-[#0d080a]", image: "/gallery/Ambience 1.jpg" },
   { label: "Kitchen", className: "col-span-1 row-span-1", grad: "from-[#08100a] via-[#0e1810] to-[#080d07]", image: "/gallery/Kitchen 2.jpg" },
   { label: "Cocktails", className: "col-span-1 row-span-1", grad: "from-[#100808] via-[#1e0f0a] to-[#12070a]", image: "/gallery/Cocktail bar counter.jpg" },
@@ -551,7 +559,7 @@ export default function HomePage() {
                     <span className="block text-[#f5f0eb] text-xs tracking-[0.3em] uppercase">
                       {item.label}
                     </span>
-                    {"desc" in item && item.desc && (
+                    {item.desc && (
                       <span className="block text-[#f5f0eb]/70 text-[11px] leading-relaxed mt-2 normal-case tracking-normal">
                         {item.desc}
                       </span>
