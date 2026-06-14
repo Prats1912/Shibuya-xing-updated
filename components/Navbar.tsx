@@ -40,34 +40,15 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
+        <Link href="/" className="flex items-center group flex-shrink-0 max-w-[120px] md:max-w-none">
           <Image
-            src="/logo.png"
+            src="/logo.jpg"
             alt="Shibuya Xing"
             width={1920}
             height={1080}
-            className="object-contain h-14 w-auto"
+            className="object-contain md:h-16 h-10 w-auto"
             priority
           />
-          <div
-            className="flex flex-col leading-none"
-            style={{
-              background: "linear-gradient(180deg, #6B0000 0%, #C41230 25%, #E84020 45%, #E8902A 70%, #F5D070 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            <span
-              className="text-lg font-bold tracking-[0.25em] uppercase"
-              style={{ fontFamily: "var(--font-playfair)" }}
-            >
-              Shibuya
-            </span>
-            <span className="text-[10px] tracking-[0.6em] uppercase font-light -mt-0.5">
-              Xing
-            </span>
-          </div>
         </Link>
 
         {/* Desktop nav */}

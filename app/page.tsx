@@ -12,11 +12,6 @@ import AnimatedSection, {
 import { getPlaceholder } from "@/lib/imageUtils";
 import { ArrowRight, ChevronDown } from "lucide-react";
 
-const CocktailCanvas = dynamic(() => import("@/components/CocktailCanvas"), {
-  ssr: false,
-  loading: () => <div className="w-full h-full" />,
-});
-
 const RamenScrollSection = dynamic(
   () => import("@/components/RamenScrollSection"),
   { ssr: false, loading: () => <div className="h-screen bg-[#080808]" /> }
@@ -282,54 +277,7 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ═══════════════ COCKTAIL 3D FEATURE ═══════════════ */}
-      <section className="relative py-0 overflow-hidden bg-[#080808]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 items-center min-h-[700px]">
-            {/* Text */}
-            <AnimatedSection direction="left" className="py-24 lg:py-0 order-2 lg:order-1">
-              <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-4 font-bold">
-                Sake Cocktails
-              </p>
-              <h2
-                className="text-base font-medium text-[#f5f0eb] leading-tight mb-6"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                The{" "}
-                <span className="italic text-[#C41230]">Sake Blossom</span>
-              </h2>
-              <div className="divider-gold max-w-[80px] mb-6" />
-              <p className="text-[#787878] text-base leading-[1.9] mb-4">
-                Japanese sake with delicate floral notes and cherry blossom essence. Every pour
-                at <span className="brand-gradient">Shibuya Xing</span> is a small story of Asia in a glass — delicate, bold, and utterly memorable.
-              </p>
-              <p className="text-[#787878] text-sm leading-[1.9] mb-10">
-                Drag the glass. Tilt it. It&apos;s yours for a moment.
-              </p>
-
-            </AnimatedSection>
-
-            {/* 3D Canvas */}
-            <AnimatedSection direction="right" delay={0.1} className="order-1 lg:order-2">
-              <div
-                className="relative w-full"
-                style={{ height: "clamp(340px, 55vw, 620px)" }}
-              >
-                <CocktailCanvas />
-                {/* Glow beneath */}
-                <div
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-24 pointer-events-none"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse at center, rgba(196,18,48,0.18) 0%, transparent 70%)",
-                    filter: "blur(20px)",
-                  }}
-                />
-              </div>
-            </AnimatedSection>
-          </div>
-        </div>
-      </section>
+      
 
       {/* THE CROSSING STORY */}
       <section className="py-28 px-6 max-w-7xl mx-auto">
@@ -418,7 +366,7 @@ export default function HomePage() {
           </h2>
         </AnimatedSection>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
           {dishes.map((dish) => (
             <StaggerItem key={dish.name}>
               <div className="border border-[#262626] bg-[#111111] group card-hover overflow-hidden">
@@ -452,6 +400,60 @@ export default function HomePage() {
                     </h3>
                   </div>
                   <p className="text-[#787878] text-xs leading-relaxed">{dish.desc}</p>
+                </div>
+              </div>
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+
+      </section>
+
+      {/* ═══════════════ FROM OUR WINE TAVERN ═══════════════ */}
+      <section className="py-28 px-6 max-w-7xl mx-auto">
+        <AnimatedSection className="text-center mb-16">
+          <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">
+            From Our Wine Tavern
+          </p>
+          <h2
+            className="text-sm font-medium text-[#f5f0eb]"
+            style={{ fontFamily: "var(--font-playfair)" }}
+          >
+            Signature Creations
+          </h2>
+        </AnimatedSection>
+
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {[
+            { name: "Sake Blossom", origin: "Sake · Signature", image: "/gallery/sake-blossom-cocktail.jpg" },
+            { name: "Classic Soju", origin: "Soju", image: "/gallery/Soju & sake 1.png" },
+            { name: "Midnight Mosaic", origin: "Cocktail", image: "/gallery/Cocktail 2.jpg" },
+            { name: "Sake Bottles", origin: "Soju", image: "/gallery/soju.jpg" },
+          ].map((cocktail) => (
+            <StaggerItem key={cocktail.name} className="h-full">
+              <div className="border border-[#262626] bg-[#111111] group card-hover overflow-hidden flex flex-col h-full">
+                <div className={`h-52 bg-gradient-to-br from-[#080808] via-[#120a0a] to-[#10080a] relative overflow-hidden`}>
+                  {cocktail.image && (
+                    <Image
+                      src={cocktail.image}
+                      alt={cocktail.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      placeholder="blur"
+                      blurDataURL={getPlaceholder(cocktail.image)}
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080808]/80 via-[#080808]/20 to-transparent" />
+                </div>
+                <div className="p-5 mt-auto">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3
+                      className="text-[#f5f0eb] text-base font-semibold leading-tight"
+                      style={{ fontFamily: "var(--font-playfair)" }}
+                    >
+                      {cocktail.name}
+                    </h3>
+                  </div>
                 </div>
               </div>
             </StaggerItem>
