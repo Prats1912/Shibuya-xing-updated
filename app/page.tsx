@@ -9,6 +9,7 @@ import AnimatedSection, {
   StaggerContainer,
   StaggerItem,
 } from "@/components/AnimatedSection";
+import { getPlaceholder } from "@/lib/imageUtils";
 import { ArrowRight, ChevronDown } from "lucide-react";
 
 const CocktailCanvas = dynamic(() => import("@/components/CocktailCanvas"), {
@@ -429,6 +430,8 @@ export default function HomePage() {
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      placeholder="blur"
+                      blurDataURL={getPlaceholder(dish.image)}
                     />
                   )}
                   {/* dark overlay for text legibility */}
@@ -550,6 +553,8 @@ export default function HomePage() {
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    placeholder="blur"
+                    blurDataURL={getPlaceholder(item.image)}
                   />
                 )}
                 <div className="absolute inset-0 crossing-grid opacity-20" />

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import AnimatedSection, { StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 import Link from "next/link";
+import { getPlaceholder } from "@/lib/imageUtils";
 
 export default function AboutPage() {
   return (
@@ -84,6 +85,8 @@ export default function AboutPage() {
                   fill
                   className="object-cover object-center"
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  placeholder="blur"
+                  blurDataURL={getPlaceholder("/shibuya-scramble.jpg")}
                 />
                 {/* dark overlay to keep it moody */}
                 <div
@@ -146,6 +149,8 @@ export default function AboutPage() {
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  placeholder="blur"
+                  blurDataURL={getPlaceholder("/gallery/Kitchen 1.jpg")}
                 />
               </div>
               <div className="relative overflow-hidden border border-[#262626]">
@@ -155,6 +160,8 @@ export default function AboutPage() {
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  placeholder="blur"
+                  blurDataURL={getPlaceholder("/gallery/Kitchen 2.jpg")}
                 />
               </div>
             </div>

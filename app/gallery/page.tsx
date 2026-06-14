@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection, { StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
+import { getPlaceholder } from "@/lib/imageUtils";
 
 type GalleryCategory = "all" | "ambiance" | "kitchen" | "food" | "bar";
 
@@ -140,6 +141,8 @@ export default function GalleryPage() {
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        placeholder="blur"
+                        blurDataURL={getPlaceholder(item.image)}
                       />
                     )}
                     <div className="absolute inset-0 crossing-grid opacity-25" />
