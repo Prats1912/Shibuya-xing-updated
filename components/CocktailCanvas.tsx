@@ -62,7 +62,7 @@ export default function CocktailCanvas() {
           style={{ transformStyle: "preserve-3d" }}
         >
           <Image
-            src="/sake-blossom.jpg"
+            src="/gallery/sake-blossom-cocktail.jpg"
             alt="Sake Blossom — Shibuya Xing Signature Cocktail"
             fill
             className="object-contain"

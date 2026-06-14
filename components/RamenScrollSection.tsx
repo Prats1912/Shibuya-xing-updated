@@ -231,7 +231,7 @@ export default function RamenScrollSection() {
             style={{ background: BG_COLOR }}
           >
             <p
-              className="text-white/20 text-[9px] tracking-[0.7em] uppercase mb-8"
+              className="text-[9px] tracking-[0.7em] uppercase mb-8 brand-gradient"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               Shibuya Xing

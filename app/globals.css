@@ -91,6 +91,13 @@ body {
   animation: shimmer 3.5s linear infinite;
 }
 
+.brand-gradient {
+  background: linear-gradient(180deg, #6B0000 0%, #C41230 35%, #E84020 55%, #F5D070 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* ── Card hover glow ── */
 .card-hover {
   transition: all 0.3s ease;

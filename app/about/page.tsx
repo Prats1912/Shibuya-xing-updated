@@ -59,7 +59,7 @@ export default function AboutPage() {
             </p>
             <p className="text-[#787878] text-base leading-[1.9] mb-6">
               That image — of convergence, of energy, of diverse stories meeting at one
-              point — is the soul of Shibuya Xing. Our founders wanted to bring that same
+              point — is the soul of <span className="brand-gradient">Shibuya Xing</span>. Our founders wanted to bring that same
               spirit to Bangalore, to Indiranagar&apos;s bustling 12th Main Road, where the city
               comes alive at night.
             </p>
@@ -114,18 +114,62 @@ export default function AboutPage() {
 
       <div className="divider-gold max-w-7xl mx-auto px-6" />
 
+      {/* Kitchen & Chef */}
+      <section className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-center">
+          <AnimatedSection direction="left">
+            <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-4 font-bold">
+              From The Kitchen
+            </p>
+            <h2
+              className="text-sm font-medium text-[#f5f0eb] leading-tight mb-8"
+              style={{ fontFamily: "var(--font-playfair)" }}
+            >
+              Led by Craft, Served with Intention
+            </h2>
+            <p className="text-[#787878] text-base leading-[1.9] mb-6">
+              Behind the dining room is a focused kitchen built around detail, timing,
+              and respect for each cuisine we bring to the table.
+            </p>
+            <p className="text-[#787878] text-base leading-[1.9]">
+              From ramen presented at the pass to cocktails finished at the counter,
+              every plate and pour carries the same <span className="brand-gradient">Shibuya Xing</span> rhythm.
+            </p>
+          </AnimatedSection>
+
+          <AnimatedSection direction="right" delay={0.2}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 h-[520px]">
+              <div className="relative overflow-hidden border border-[#262626]">
+                <Image
+                  src="/gallery/Kitchen 1.jpg"
+                  alt="Shibuya Xing kitchen"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+              <div className="relative overflow-hidden border border-[#262626]">
+                <Image
+                  src="/gallery/Kitchen 2.jpg"
+                  alt="Shibuya Xing kitchen"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      <div className="divider-gold max-w-7xl mx-auto px-6" />
+
       {/* Vision & Mission */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <AnimatedSection className="text-center mb-16">
           <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">
             What Drives Us
           </p>
-          <h2
-            className="text-sm font-medium text-[#f5f0eb]"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            Vision & Mission
-          </h2>
         </AnimatedSection>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -144,7 +188,7 @@ export default function AboutPage() {
                 className="text-[#f5f0eb] text-2xl font-bold mb-6"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
-                Where the World Meets at One Table
+                Where ASIA meets at one table.
               </h3>
               <p className="text-[#787878] text-sm leading-[2]">
                 Inspired by Tokyo&apos;s Shibuya spirit, we unite people beyond borders —
@@ -168,7 +212,7 @@ export default function AboutPage() {
                 className="text-[#f5f0eb] text-2xl font-bold mb-6"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
-                One Crossing. Every Day.
+                Every Day. One Crossing. Exotic flavours.
               </h3>
               <p className="text-[#787878] text-sm leading-[2]">
                 To honour the soul of Asia&apos;s culinary traditions and bring them together
@@ -198,7 +242,7 @@ export default function AboutPage() {
           <StaggerContainer className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 gap-y-12">
             {[
               {
-                symbol: "一",
+                symbol: "和",
                 label: "Unity",
                 text: "Seven Asian cuisines. One table. The crossing teaches us that diversity creates beauty.",
               },
@@ -208,7 +252,7 @@ export default function AboutPage() {
                 text: "Every ingredient carries the memory of where it came from. We cook with that reverence.",
               },
               {
-                symbol: "道",
+                symbol: "技",
                 label: "Craft",
                 text: "From the fold of a dumpling to the flame under a wok — technique is a form of poetry.",
               },

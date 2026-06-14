@@ -184,11 +184,10 @@ const dishes = [
 ];
 
 const galleryItems = [
-  { label: "Ambiance", className: "col-span-2 row-span-2", grad: "from-[#0a0810] via-[#180f18] to-[#0d080a]", image: "/gallery/DSC_0948.jpg" },
-  { label: "Sushi Bar", className: "col-span-1 row-span-1", grad: "from-[#08100a] via-[#0e1810] to-[#080d07]", image: "/gallery/DSC_0839.jpg" },
-  { label: "Cocktails", className: "col-span-1 row-span-1", grad: "from-[#100808] via-[#1e0f0a] to-[#12070a]", image: "/gallery/DSC_0984.jpg" },
-  { label: "Dim Sum", className: "col-span-1 row-span-1", grad: "from-[#0a0a12] via-[#12101c] to-[#0a080e]", image: "/gallery/Ramen.jpg" },
-  { label: "The Bar", className: "col-span-1 row-span-1", grad: "from-[#0f1005] via-[#1a180a] to-[#0d0c05]", image: "/gallery/DSC_0894.jpg" },
+  { label: "Ambience", className: "col-span-2 row-span-2", grad: "from-[#0a0810] via-[#180f18] to-[#0d080a]", image: "/gallery/Ambience 1.jpg" },
+  { label: "Kitchen", className: "col-span-1 row-span-1", grad: "from-[#08100a] via-[#0e1810] to-[#080d07]", image: "/gallery/Kitchen 2.jpg" },
+  { label: "Cocktails", className: "col-span-1 row-span-1", grad: "from-[#100808] via-[#1e0f0a] to-[#12070a]", image: "/gallery/Cocktail bar counter.jpg" },
+  { label: "The Bar", className: "col-span-1 row-span-1", grad: "from-[#0f1005] via-[#1a180a] to-[#0d0c05]", image: "/gallery/Cocktail bar 1.jpg" },
 ];
 
 export default function HomePage() {
@@ -250,15 +249,9 @@ export default function HomePage() {
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Link
-              href="/menu"
-              className="border border-[#C41230] text-[#C41230] px-8 py-3.5 text-xs tracking-[0.25em] uppercase font-medium hover:bg-[#C41230] hover:text-[#080808] transition-all duration-300 flex items-center gap-2 justify-center group"
-            >
-              Explore Menu
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              href="https://reservations.petpooja.com/form/paidformperpax/f6b98aa9aecea9415aa032c0c57cefaac7ad50cde2469ff09ce9a459c11007258a7380430e0c4abb6912be5a85f35c85971ad72749fc89eef8aebf34050261f98b977b6aa68e06e05b9bde3790ab513d70607ef5be40b8e1a485966a9607a8da" target="_blank" rel="noopener noreferrer"
-              className="bg-[#C41230] text-[#080808] px-8 py-3.5 text-xs tracking-[0.25em] uppercase font-semibold hover:bg-[#E8394D] transition-all duration-300 flex items-center justify-center"
+              href="https://reservations.petpooja.com/form/paidformperpax/f6b98aa9aecea9415aa032c0c57cefaac7ad50cde2469ff09ce9a459c11007258a7380430e0c4abb6912be5a85f35c85971ad72749fc89eef8aebf34050261f98b977b6aa68e06e05b9bde3790ab513d70607ef5be40b8e1a485966a9607a8da"
+              target="_blank" rel="noopener noreferrer"
+              className="bg-[#C41230] text-[#080808] px-8 py-3.5 text-sm tracking-[0.25em] uppercase font-semibold hover:bg-[#E8394D] transition-all duration-300 flex items-center justify-center"
             >
               Reserve a Table
             </Link>
@@ -299,17 +292,12 @@ export default function HomePage() {
               <div className="divider-gold max-w-[80px] mb-6" />
               <p className="text-[#787878] text-base leading-[1.9] mb-4">
                 Japanese sake with delicate floral notes and cherry blossom essence. Every pour
-                at Shibuya Xing is a small story of Asia in a glass — delicate, bold, and utterly memorable.
+                at <span className="brand-gradient">Shibuya Xing</span> is a small story of Asia in a glass — delicate, bold, and utterly memorable.
               </p>
               <p className="text-[#787878] text-sm leading-[1.9] mb-10">
                 Drag the glass. Tilt it. It&apos;s yours for a moment.
               </p>
-              <Link
-                href="/menu"
-                className="text-[#C41230] text-xs tracking-[0.3em] uppercase font-medium flex items-center gap-3 group hover:gap-4 transition-all duration-300"
-              >
-                See Cocktail Menu <ArrowRight size={14} />
-              </Link>
+
             </AnimatedSection>
 
             {/* 3D Canvas */}
@@ -350,7 +338,7 @@ export default function HomePage() {
               Bangalore&apos;s Heart
             </h2>
             <p className="text-[#787878] text-base leading-[1.9] mb-6">
-              Shibuya Xing was born from a simple, soul-stirring idea — to recreate the
+              <span className="brand-gradient">Shibuya Xing</span> was born from a simple, soul-stirring idea — to recreate the
               electric energy of Tokyo&apos;s iconic Shibuya Crossing and weave it into
               every dish, every corner, and every moment of your dining experience.
             </p>
@@ -459,15 +447,6 @@ export default function HomePage() {
           ))}
         </StaggerContainer>
 
-        <AnimatedSection className="text-center mt-12" delay={0.2}>
-          <Link
-            href="/menu"
-            className="inline-flex items-center gap-3 border border-[#262626] text-[#f5f0eb]/60 px-8 py-3.5 text-xs tracking-[0.25em] uppercase hover:border-[#C41230] hover:text-[#C41230] transition-all duration-300 group"
-          >
-            View Full Menu
-            <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </AnimatedSection>
       </section>
 
       {/* ═══════════════ RAMEN SCROLL 3D ═══════════════ */}
@@ -533,7 +512,7 @@ export default function HomePage() {
         <AnimatedSection className="flex items-end justify-between mb-12 flex-wrap gap-4">
           <div>
             <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">
-              Inside Shibuya Xing
+              Inside <span className="brand-gradient">Shibuya Xing</span>
             </p>
             <h2
               className="text-sm font-medium text-[#f5f0eb]"
@@ -568,9 +547,16 @@ export default function HomePage() {
                 <div className="absolute inset-0 crossing-grid opacity-20" />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <span className="text-[#f5f0eb] text-xs tracking-[0.35em] uppercase border border-[#f5f0eb]/30 px-4 py-2 backdrop-blur-sm">
-                    {item.label}
-                  </span>
+                  <div className="border border-[#f5f0eb]/30 px-4 py-3 backdrop-blur-sm text-center max-w-[85%]">
+                    <span className="block text-[#f5f0eb] text-xs tracking-[0.3em] uppercase">
+                      {item.label}
+                    </span>
+                    {"desc" in item && item.desc && (
+                      <span className="block text-[#f5f0eb]/70 text-[11px] leading-relaxed mt-2 normal-case tracking-normal">
+                        {item.desc}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             </StaggerItem>

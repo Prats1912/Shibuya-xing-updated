@@ -65,9 +65,14 @@ export default function ContactPage() {
                   icon: Phone,
                   label: "Phone",
                   content: (
-                    <a href="tel:+919845981651" className="text-[#C41230] text-sm hover:text-[#E8394D] transition-colors">
-                      +91 98459 81651
-                    </a>
+                    <div className="space-y-2">
+                      <a href="tel:+919845981651" className="text-[#C41230] text-sm hover:text-[#E8394D] transition-colors block">
+                        +91 98459 81651
+                      </a>
+                      <a href="tel:+91984505752" className="text-[#C41230] text-sm hover:text-[#E8394D] transition-colors block">
+                        +91 98459 05752
+                      </a>
+                    </div>
                   ),
                 },
                 {
@@ -118,15 +123,16 @@ export default function ContactPage() {
               <p className="text-[#787878] text-[10px] tracking-[0.35em] uppercase mb-4">Follow Us</p>
               <div className="flex gap-4">
                 {[
-                  { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/feastshibuya" },
-                  { Icon: Facebook, label: "Facebook", href: "#" },
-                ].map(({ Icon, label, href }) => (
+                  { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/feastshibuya", color: "#E4405F" },
+                  { Icon: Facebook, label: "Facebook", href: "https://www.facebook.com/profile.php?id=61579749830089", color: "#1877F2" },
+                ].map(({ Icon, label, href, color }) => (
                   <a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 border border-[#262626] flex items-center justify-center text-[#787878] hover:border-[#C41230] hover:text-[#C41230] transition-all duration-300"
+                    className="w-10 h-10 border flex items-center justify-center transition-all duration-300"
+                    style={{ borderColor: color, color }}
                     aria-label={label}
                   >
                     <Icon size={16} />
@@ -157,7 +163,7 @@ export default function ContactPage() {
                     className="text-[#f5f0eb] text-lg font-semibold"
                     style={{ fontFamily: "var(--font-playfair)" }}
                   >
-                    Shibuya Xing
+                    <span className="brand-gradient">Shibuya Xing</span>
                   </p>
                   <p className="text-[#787878] text-xs tracking-widest mt-1">
                     12th Main Road, Indiranagar

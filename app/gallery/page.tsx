@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection, { StaggerContainer, StaggerItem } from "@/components/AnimatedSection";
 
-type GalleryCategory = "all" | "ambiance" | "food" | "bar" | "events";
+type GalleryCategory = "all" | "ambiance" | "kitchen" | "food" | "bar";
 
 interface GalleryItem {
   label: string;
@@ -13,29 +13,44 @@ interface GalleryItem {
   gradient: string;
   size?: "large" | "normal";
   image?: string;
+  description?: string;
 }
 
 const items: GalleryItem[] = [
-  { label: "The Dining Room", category: "ambiance", gradient: "from-[#0a0810] via-[#18101a] to-[#0d0810]", size: "large", image: "/gallery/DSC_0015.jpg" },
-  { label: "Dragon Roll", category: "food", gradient: "from-[#08100a] via-[#0e1a10] to-[#080d07]", image: "/gallery/Ramen.jpg" },
-  { label: "The Bar", category: "bar", gradient: "from-[#100808] via-[#1a0f08] to-[#100a06]", image: "/gallery/DSC_0984.jpg" },
-  { label: "Sushi Bar", category: "ambiance", gradient: "from-[#0a0a12] via-[#12101c] to-[#0a080e]", image: "/gallery/DSC_0839.jpg" },
-  { label: "Wagyu Bulgogi", category: "food", gradient: "from-[#0f1005] via-[#1a1808] to-[#0d0c05]", size: "large", image: "/gallery/Ramen-preperationbychef.jpg" },
-  { label: "Private Events", category: "events", gradient: "from-[#0a0810] via-[#150f15] to-[#0a080d]", image: "/gallery/DSC_0948.jpg" },
-  { label: "Xiao Long Bao", category: "food", gradient: "from-[#08100a] via-[#101808] to-[#08100a]", image: "/gallery/head-chef.jpg" },
-  { label: "Cocktail Bar", category: "bar", gradient: "from-[#0d0808] via-[#180e0a] to-[#100808]", size: "large", image: "/gallery/DSC_0894.jpg" },
-  { label: "The Entrance", category: "ambiance", gradient: "from-[#080810] via-[#10101a] to-[#08080d]", image: "/gallery/DSC_0842.jpg" },
-  { label: "Matcha Lava Cake", category: "food", gradient: "from-[#081008] via-[#0e180e] to-[#080d08]", image: "/gallery/DSC_0854.jpg" },
-  { label: "Corporate Dining", category: "events", gradient: "from-[#0a0810] via-[#14101e] to-[#0a080e]", image: "/gallery/DSC_0950.jpg" },
-  { label: "Sakura Fizz", category: "bar", gradient: "from-[#100808] via-[#1e0f10] to-[#120808]" },
+  { label: "Dining Room", category: "ambiance", gradient: "from-[#0a0810] via-[#18101a] to-[#0d0810]", size: "large", image: "/gallery/Ambience 1.jpg" },
+  { label: "Pan-Asian Lounge", category: "ambiance", gradient: "from-[#08100a] via-[#0e1a10] to-[#080d07]", image: "/gallery/Ambience 2.jpg" },
+  { label: "Shibuya Ambience", category: "ambiance", gradient: "from-[#100808] via-[#1a0f08] to-[#100a06]", image: "/gallery/Ambience 3.jpg" },
+  { label: "Dining Details", category: "ambiance", gradient: "from-[#0a0a12] via-[#12101c] to-[#0a080e]", size: "large", image: "/gallery/ambience 4.jpg" },
+  { label: "Evening Ambience", category: "ambiance", gradient: "from-[#0f1005] via-[#1a1808] to-[#0d0c05]", image: "/gallery/Ambience at night 1.jpg" },
+  { label: "Night Dining", category: "ambiance", gradient: "from-[#0a0810] via-[#150f15] to-[#0a080d]", image: "/gallery/Ambience at night 2.jpg" },
+  { label: "Late Night Mood", category: "ambiance", gradient: "from-[#08100a] via-[#101808] to-[#08100a]", image: "/gallery/Ambience at night 3.jpg" },
+  { label: "Evening Lounge", category: "ambiance", gradient: "from-[#0d0808] via-[#180e0a] to-[#100808]", size: "large", image: "/gallery/Ambience at night 4.jpg" },
+  { label: "Night at Shibuya", category: "ambiance", gradient: "from-[#080810] via-[#10101a] to-[#08080d]", image: "/gallery/Ambience at night 5.jpg" },
+  { label: "Kitchen in Motion", category: "kitchen", gradient: "from-[#100808] via-[#1e0f10] to-[#120808]", image: "/gallery/Kitchen 1.jpg" },
+  { label: "Open Kitchen", category: "kitchen", gradient: "from-[#0a0810] via-[#18101a] to-[#0d0810]", size: "large", image: "/gallery/Kitchen 2.jpg" },
+  { label: "Signature Plate", category: "food", gradient: "from-[#08100a] via-[#0e1a10] to-[#080d07]", image: "/gallery/Food 1.jpg" },
+  { label: "Signature Cocktail", category: "bar", gradient: "from-[#100808] via-[#1a0f08] to-[#100a06]", image: "/gallery/Cocktail 1.jpg" },
+  { label: "Craft Cocktail", category: "bar", gradient: "from-[#0a0a12] via-[#12101c] to-[#0a080e]", image: "/gallery/Cocktail 2.jpg" },
+  { label: "Cocktail Bar", category: "bar", gradient: "from-[#0f1005] via-[#1a1808] to-[#0d0c05]", size: "large", image: "/gallery/Cocktail bar 1.jpg" },
+  { label: "Bar Counter", category: "bar", gradient: "from-[#0a0810] via-[#150f15] to-[#0a080d]", image: "/gallery/Cocktail bar counter.jpg" },
+  { label: "House Mocktail", category: "bar", gradient: "from-[#08100a] via-[#101808] to-[#08100a]", image: "/gallery/Mocktail 1.jpg" },
+  { label: "Soju & Sake", category: "bar", gradient: "from-[#0d0808] via-[#180e0a] to-[#100808]", size: "large", image: "/gallery/sake.jpg" },
+  { label: "Soju Bottle", category: "bar", gradient: "from-[#0a0810] via-[#150f15] to-[#0a080d]", image: "/gallery/soju.jpg" },
+  { label: "Dim Sum", category: "food", gradient: "from-[#08100a] via-[#0e1a10] to-[#080d07]", image: "/gallery/dim-sum.jpg" },
+  { label: "Prawns Tempura", category: "food", gradient: "from-[#08100a] via-[#0e1a10] to-[#080d07]", image: "/dishes/prawns-tempura.jpg" },
+  { label: "Japanese Cheesecake", category: "food", gradient: "from-[#08100a] via-[#0e1a10] to-[#080d07]", image: "/gallery/japanese-cheesecake.jpg" },
+  { label: "Mango Pudding", category: "food", gradient: "from-[#08100a] via-[#0e1a10] to-[#080d07]", image: "/gallery/mango-pudding.jpg" },
+  { label: "Pairing 1", category: "food", gradient: "from-[#08100a] via-[#0e1a10] to-[#080d07]", image: "/gallery/pairing1.jpg" },
+  { label: "Pairing 2", category: "food", gradient: "from-[#08100a] via-[#0e1a10] to-[#080d07]", image: "/gallery/pairing2.jpg" },
+  { label: "Pairing 3", category: "food", gradient: "from-[#08100a] via-[#0e1a10] to-[#080d07]", image: "/gallery/pairing3.jpg" },
 ];
 
 const tabs: { id: GalleryCategory; label: string }[] = [
   { id: "all", label: "All" },
   { id: "ambiance", label: "Ambiance" },
+  { id: "kitchen", label: "Kitchen" },
   { id: "food", label: "Food" },
-  { id: "bar", label: "Bar & Cocktails" },
-  { id: "events", label: "Events" },
+  { id: "bar", label: "Wine & Cocktails" },
 ];
 
 export default function GalleryPage() {
@@ -57,7 +72,7 @@ export default function GalleryPage() {
         />
         <div className="absolute inset-0 crossing-grid opacity-30" />
         <AnimatedSection className="relative z-10 max-w-7xl mx-auto">
-          <p className="text-[#C41230] text-[10px] tracking-[0.5em] uppercase mb-4 font-medium">
+          <p className="text-[10px] tracking-[0.5em] uppercase mb-4 font-medium brand-gradient">
             Shibuya Xing
           </p>
           <h1
@@ -68,7 +83,7 @@ export default function GalleryPage() {
           </h1>
           <div className="divider-gold max-w-xs mb-6" />
           <p className="text-[#787878] text-base max-w-lg leading-relaxed">
-            A visual journey through our space, our food, and the moments that make Shibuya Xing unforgettable.
+            A visual journey through our space, our food, and the moments that make <span className="brand-gradient">Shibuya Xing</span> unforgettable.
           </p>
         </AnimatedSection>
       </section>
@@ -136,9 +151,14 @@ export default function GalleryPage() {
                       }}
                     />
                     <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-400">
-                      <p className="text-[#C41230] text-[9px] tracking-[0.35em] uppercase mt-0.5">
-                        {item.category}
+                      <p className="text-[#C41230] text-[10px] tracking-[0.3em] uppercase mt-0.5">
+                        {item.label}
                       </p>
+                      {item.description && (
+                        <p className="text-[#f5f0eb]/75 text-xs leading-relaxed mt-2 max-w-xs">
+                          {item.description}
+                        </p>
+                      )}
                     </div>
                     {/* Corner accent */}
                     <div className="absolute top-4 right-4 w-6 h-6 border-t border-r border-[#C41230]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Instagram, Facebook } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -18,12 +19,12 @@ export default function Footer() {
               />
               <div>
                 <div
-                  className="text-2xl font-bold tracking-[0.3em] text-[#f5f0eb] uppercase mb-0.5"
+                  className="text-2xl font-bold tracking-[0.3em] uppercase mb-0.5 brand-gradient"
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
                   Shibuya
                 </div>
-                <div className="text-[#C41230] text-xs tracking-[0.7em] uppercase font-light">
+                <div className="text-xs tracking-[0.7em] uppercase font-light brand-gradient">
                   Xing
                 </div>
               </div>
@@ -36,15 +37,28 @@ export default function Footer() {
             <p className="text-[#C41230] text-xs tracking-[0.2em] uppercase mt-5 font-medium">
               621/B San-Jose, 12th Main Road, Indiranagar, Bangalore — 560038
             </p>
-            <div className="flex gap-3 mt-4">
+            <div className="flex items-center gap-3 mt-4">
               <a
                 href="https://www.instagram.com/feastshibuya"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#787878] text-xs tracking-[0.2em] hover:text-[#C41230] transition-colors duration-200"
+                className="text-[#E4405F] transition-all duration-200"
+                aria-label="Instagram"
               >
-                @feastshibuya
+                <Instagram size={16} />
               </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61579749830089"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#1877F2] transition-all duration-200"
+                aria-label="Facebook"
+              >
+                <Facebook size={16} />
+              </a>
+              <span className="text-[#787878] text-xs tracking-[0.2em] uppercase">
+                @feastshibuya
+              </span>
             </div>
           </div>
 
@@ -93,7 +107,10 @@ export default function Footer() {
               </div>
               <div className="pt-4 border-t border-[#262626]">
                 <p className="text-[#787878] text-xs mb-1">Reservations</p>
-                <a href="tel:+919845981651" className="text-[#C41230] text-sm hover:text-[#E8394D] transition-colors">+91 98459 81651</a>
+                <div className="space-y-1">
+                  <a href="tel:+919845981651" className="text-[#C41230] text-sm hover:text-[#E8394D] transition-colors block">+91 98459 81651</a>
+                  <a href="tel:+91984505752" className="text-[#C41230] text-sm hover:text-[#E8394D] transition-colors block">+91 98459 05752</a>
+                </div>
               </div>
             </div>
           </div>
@@ -103,7 +120,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[#787878] text-xs tracking-wider">
-            &copy; {new Date().getFullYear()} Shibuya Xing. All rights reserved.
+            &copy; {new Date().getFullYear()} <span className="brand-gradient">Shibuya Xing</span>. All rights reserved.
           </p>
           <p className="text-[#787878] text-xs tracking-widest uppercase">
             One Crossing. Exotic Flavours.

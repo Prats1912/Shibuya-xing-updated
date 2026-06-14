@@ -392,7 +392,7 @@ export default function MenuPage() {
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 20%, rgba(196,18,48,0.05) 0%, transparent 70%)" }} />
         <div className="absolute inset-0 crossing-grid opacity-30" />
         <AnimatedSection className="relative z-10 max-w-7xl mx-auto">
-          <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold">Shibuya Xing</p>
+          <p className="text-[#C41230] text-[clamp(22px,2.5vw,36px)] tracking-[0.12em] uppercase mb-3 font-bold brand-gradient">Shibuya Xing</p>
           <h1 className="text-base font-semibold text-[#f5f0eb] uppercase leading-none tracking-tight mb-4" style={{ fontFamily: "var(--font-playfair)" }}>
             Flavours
           </h1>
