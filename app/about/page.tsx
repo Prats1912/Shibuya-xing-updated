@@ -195,7 +195,7 @@ export default function AboutPage() {
                 className="text-[#f5f0eb] text-2xl font-bold mb-6"
                 style={{ fontFamily: "var(--font-playfair)" }}
               >
-                Where ASIA meets at one table.
+                One Table, Taste Asia. 🍣🥟🍜🍶✨
               </h3>
               <p className="text-[#787878] text-sm leading-[2]">
                 Inspired by Tokyo&apos;s Shibuya spirit, we unite people beyond borders —
@@ -215,11 +215,8 @@ export default function AboutPage() {
               <span className="text-[#C41230] text-lg tracking-[0.1em] uppercase font-bold block mb-3">
                 Our Mission
               </span>
-              <h3
-                className="text-[#f5f0eb] text-2xl font-bold mb-6"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                Every Day. One Crossing. Exotic flavours.
+              <h3 className="text-[#f5f0eb] text-2xl font-bold mb-6" style={{ fontFamily: "var(--font-playfair)" }}>
+                Every Day. One Crossing. Exotic Flavours.
               </h3>
               <p className="text-[#787878] text-sm leading-[2]">
                 To honour the soul of Asia&apos;s culinary traditions and bring them together

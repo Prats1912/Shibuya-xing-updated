@@ -291,11 +291,11 @@ export default function HomePage() {
               style={{ fontFamily: "var(--font-playfair)" }}
             >
               From Tokyo&apos;s Most Famous{" "}
-              <span className="italic text-[#C41230]">Crossing</span> to
+              <span className="italic text-[#C41230]">Crossing</span>{" "}to{" "}
               Bangalore&apos;s Heart
             </h2>
             <p className="text-[#787878] text-base leading-[1.9] mb-6">
-              <span className="brand-gradient">Shibuya Xing</span> was born from a simple, soul-stirring idea — to recreate the
+              <span className="brand-gradient">Shibuya Xing</span>{" "}was{" "}born from a simple, soul-stirring idea — to recreate the
               electric energy of Tokyo&apos;s iconic Shibuya Crossing and weave it into
               every dish, every corner, and every moment of your dining experience.
             </p>
@@ -425,9 +425,9 @@ export default function HomePage() {
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
             { name: "Sake Blossom", origin: "Sake · Signature", image: "/gallery/sake-blossom-cocktail.jpg" },
-            { name: "Classic Soju", origin: "Soju", image: "/gallery/Soju & sake 1.png" },
+            { name: "Korean Soju", origin: "Soju", image: "/gallery/soju.jpg" },
             { name: "Midnight Mosaic", origin: "Cocktail", image: "/gallery/Cocktail 2.jpg" },
-            { name: "Sake Bottles", origin: "Soju", image: "/gallery/soju.jpg" },
+            { name: "Japanese Sake", origin: "Soju", image: "/gallery/Soju & sake 1.png" },
           ].map((cocktail) => (
             <StaggerItem key={cocktail.name} className="h-full">
               <div className="border border-[#262626] bg-[#111111] group card-hover overflow-hidden flex flex-col h-full">
